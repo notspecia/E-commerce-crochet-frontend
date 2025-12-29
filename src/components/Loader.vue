@@ -21,6 +21,6 @@
 .loader-spinner {
     width: 3rem;
     height: 3rem;
-    color: $color-primary;
+    color: $color-primary-500;
 }
 </style>

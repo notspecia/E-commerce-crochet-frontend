@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref, watch } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router';
 import { useReviewsStore } from '@/stores/review';
 import { useProductStore } from '@/stores/product';
@@ -38,7 +38,7 @@ const reviewData = reactive<Review>({
     rating: 0,
     comment: '',
     originLang: locale.value,
-    approved: false
+    approved: false,
 });
 
 /* REF */
@@ -53,11 +53,10 @@ const onClose = (): void => {
 
 // invio della recensione + cpntrollo loggato user
 const submitReview = async () => {
-    console.log(reviewData);
     isLoading.value = true;
     await reviewStore.createReview(reviewData);
     isLoading.value = false;
-    emit('close');
+    onClose();
 }
 
 
@@ -75,17 +74,19 @@ watch(() => props.show, (isOpen) => {
 
 
 <template>
-    <!-- sfondo nero dietro la modale recensione -->
-    <div v-if="show" class="overlay" />
+    <div v-if="show" class="modal-wrapper">
+        <!-- overlay -->
+        <div class="overlay" @click="onClose" />
 
-    <div v-if="show">
-        <div class="modal-backdrop custom-backdrop" role="dialog" aria-modal="true" tabindex="-1" />
+        <!-- backdrop -->
+        <div class="modal-backdrop custom-backdrop" />
 
-        <div class="modal" tabindex="-1" role="dialog" aria-modal="true">
+        <!-- modal -->
+        <div class="modal" role="dialog" aria-modal="true" tabindex="-1">
             <form class="modal-dialog" @submit.prevent="submitReview">
                 <div class="modal-content text-black">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="reviewModalLabel">
+                        <h4 class="modal-title">
                             Scrivi una recensione
                         </h4>
                         <button type="button" class="btn-close" @click="onClose" />
@@ -121,7 +122,7 @@ watch(() => props.show, (isOpen) => {
                             Annulla
                         </button>
                         <button type="submit" class="btn btn-primary" :disabled="isLoading">
-                            <span v-if="isLoading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+                            <span v-if="isLoading" class="spinner-border spinner-border-sm me-2" />
                             {{ isLoading ? 'Processing...' : 'Send review' }}
                         </button>
                     </div>
@@ -130,6 +131,7 @@ watch(() => props.show, (isOpen) => {
         </div>
     </div>
 </template>
+
 
 
 <style scoped lang="scss">

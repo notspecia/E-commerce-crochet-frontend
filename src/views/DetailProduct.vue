@@ -17,13 +17,13 @@ const route = useRoute();
 /* FUNCTIONS */
 // used for the change of the route and mount of component detail
 const loadProduct = (): void => {
-    productStore.fetchProduct(route.params.documentId as string);
+    productStore.fetchProduct(route.params.slug as string);
 };
 
 /* WATCHS */
 // used for check if the documentId detail change while using cart router.push()
 watch(
-    () => route.params.documentId as string,
+    () => route.params.slug as string,
     () => {
         loadProduct();
     }

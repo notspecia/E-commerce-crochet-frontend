@@ -34,7 +34,7 @@ onMounted(async () => {
     <!-- Rotte della pagina definitre nel router.js -->
     <RouterView />
   </main>
-  <Footer />
+  <!-- <Footer /> -->
   <!-- Toast container per contenere tutti i messaggi di notifica -->
   <ToastContainer />
 </template>

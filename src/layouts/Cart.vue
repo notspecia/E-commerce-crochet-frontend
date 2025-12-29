@@ -16,9 +16,9 @@ const productsStore = useProductsStore();
 
 /* FUNCTIONS */
 // on click image on cart go to the detail of the product
-const goDetailProduct = (documentId: string): void => {
+const goDetailProduct = (slug: string): void => {
     cartStore.toggleCart();
-    router.push(`/products/${documentId}`);
+    router.push(`/products/${slug}`);
 }
 </script>
 
@@ -60,7 +60,7 @@ const goDetailProduct = (documentId: string): void => {
                 <div v-for="product in cartStore.productsCart" :key="product.id" class="cart-product">
                     <!-- immagine di copertina principale -->
                     <img :src="`${API_BASE_URL}${product.images[0].url}`" :alt="`${product.images[0].alternativeText}`"
-                        class="cart-product-img me-3" @click="goDetailProduct(product.documentId)" />
+                        class="cart-product-img me-3" @click="goDetailProduct(product.slug)" />
                     <!--info -->
                     <div class="flex-grow-1">
                         <h5 class="mb-1">{{ product.title }}</h5>

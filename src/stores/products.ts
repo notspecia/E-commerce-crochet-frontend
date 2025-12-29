@@ -32,17 +32,14 @@ export const useProductsStore = defineStore('products', () => {
     } catch (error) {
       stateProducts.error = `${error}`;
     } finally {
-      setTimeout(() => {
-        stateProducts.isLoading = false;
-      }, 500);
+      stateProducts.isLoading = false;
     };
   }
 
 
   /* WATCH */
   // Watch per il cambio della lingua, ricarica i prodotti quando cambia la lingua su tutta l'applicazione
-  watch(locale, (): void => {
-    console.log(`Lingua cambiata a: ${locale.value}, ricarico i prodotti...`);
+  watch(locale, () => {
     stateProducts.error = null; // reset error
     fetchProducts();
   });

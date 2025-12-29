@@ -24,10 +24,10 @@ export const useProductStore = defineStore('product', () => {
 
     /* ------------ACTIONS------------- */
     // function for fetch single product (api consumed in the product detail)
-    const fetchProduct = async (documentId: string) => {
+    const fetchProduct = async (slug: string) => {
         try {
             stateProduct.isLoading = true;
-            const response = await GetProduct(`${API_BASE_URL}/api/products/${documentId}?locale=${locale.value}`);
+            const response = await GetProduct(`${API_BASE_URL}/api/products/${slug}?locale=${locale.value}`);
             stateProduct.product = response;
         } catch (err: any) {
             stateProduct.error = err.message;
@@ -39,10 +39,10 @@ export const useProductStore = defineStore('product', () => {
 
     /* WATCH */
     // Watch per il cambio della lingua, ricarica il prodotto quando cambia la lingua su tutta l'applicazione
-    watch(locale, (): void => {
+    watch(locale, () => {
         stateProduct.error = null; // reset error
         if (stateProduct.product) {
-            fetchProduct(stateProduct.product.documentId);
+            fetchProduct(stateProduct.product.slug);
         }
     });
 

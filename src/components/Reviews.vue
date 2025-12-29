@@ -15,16 +15,18 @@ const reviewsStore = useReviewsStore();
 /* REF */
 const showModalReview = ref<boolean>(false); // stato per gestire l'apertura/chiusura della modale recensione prodotto
 
-/* WATCH */
-// watch di controllo per la pagina prodotti per la scrittura della recensione tramite modale
-watch(showModalReview, (isOpen) => {
-    document.body.classList.toggle('no-scroll', isOpen);
-});
 
 /* FUNCTIONS */
 const handleReview = (): void => {
     showModalReview.value = !showModalReview.value; // inversione value attiva disattiva
 }
+
+
+/* WATCH */
+// watch di controllo per la pagina prodotti per la scrittura della recensione tramite modale
+watch(showModalReview, (isOpen) => {
+    document.body.classList.toggle('no-scroll', isOpen);
+});
 
 /* ONMOUNTED */
 onMounted(() => {
@@ -71,8 +73,9 @@ onMounted(() => {
 
     <button class="btn btn-one mb-5" @click="handleReview"> scrivi recensione</button>
 
-    <!-- Pulsante aggiungi recensione -->
+    <!-- pulsante add recensione -->
     <ModalReview :show="showModalReview" @close="handleReview" />
+
 </template>
 
 
@@ -145,5 +148,16 @@ h3.title-line {
     .text-danger {
         color: red;
     }
+}
+
+/* we will explain what these classes do next! */
+.v-enter-active,
+.v-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
 }
 </style>
