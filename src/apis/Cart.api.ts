@@ -1,7 +1,7 @@
 import { useUserStore } from "../stores/user";
 import type ProductSelected from "../models/ProductSelected.model";
 
-
+// TODO REVIEW WHIT NEW BUILD ARK RELATIONS AND DONT USE ANYMORE USERID
 /*
  Sincronizza il carrello dell'utente con il server.
  funzione per sincronizzare il carrello locale con il carrello remoto nel DB quando effettuate modifiche all array productsSelected

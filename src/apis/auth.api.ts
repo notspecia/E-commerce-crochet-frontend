@@ -10,7 +10,9 @@ export const authUser = async (path: string, credentials: Login | Register) => {
 
     const response = await fetch(path, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+            "Content-Type": "application/json"
+        },
         body: JSON.stringify(credentials),
     });
 

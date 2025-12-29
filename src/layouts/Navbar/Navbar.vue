@@ -198,8 +198,8 @@ header {
 
         // icona logo + piccola per brk <= 576 (mobile)
         @media (max-width: $breakpoint-sm) {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
         }
     }
 

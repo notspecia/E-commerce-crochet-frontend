@@ -44,12 +44,10 @@ onMounted(() => {
     <div class="reviews-container">
         <!-- Caricamento -->
         <Loader v-if="reviewsStore.stateReviews.isLoading" />
-
         <!-- Errore -->
         <p v-else-if="reviewsStore.stateReviews.error" class="text-danger">
             {{ reviewsStore.stateReviews.error }}
         </p>
-
         <!-- Nessuna recensione -->
         <p v-else-if="reviewsStore.stateReviews.reviews.length === 0">
             Nessuna recensione presente
@@ -108,11 +106,10 @@ h3.title-line {
 
     // card item recensione singola
     .review-item {
+        width: 50%;
         background-color: $color-white;
         padding: 1rem 1.2rem;
-
         border-radius: 5px;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
 
         .review-user {
             display: flex;
@@ -137,6 +134,7 @@ h3.title-line {
         .review-date {
             font-size: 0.85rem;
             color: $color-gray-600;
+            float: right;
         }
     }
 
@@ -148,16 +146,5 @@ h3.title-line {
     .text-danger {
         color: red;
     }
-}
-
-/* we will explain what these classes do next! */
-.v-enter-active,
-.v-leave-active {
-    transition: opacity 0.5s ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-    opacity: 0;
 }
 </style>

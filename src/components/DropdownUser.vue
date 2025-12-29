@@ -17,7 +17,7 @@ const handleUser = (): void => {
 
 <template>
     <div class="dropdown-center">
-        <i class="bi bi-person fs-3 dropdown-toggle" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false"
+        <i class="bi bi-person user dropdown-toggle" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false"
             title="Account"></i>
         <ul class="dropdown-menu" aria-labelledby="userMenu">
             <li class="dropdown-item disabled mb-3 d-flex flex-column gap-1 fw-bold">
@@ -39,6 +39,15 @@ const handleUser = (): void => {
 
 
 <style lang="scss">
+i.user {
+    color: $color-black;
+    font-size: 1.85rem;
+
+    &:hover {
+        color: $color-gray-900;
+    }
+}
+
 .username {
     font-size: 1.15rem;
     color: $color-black;

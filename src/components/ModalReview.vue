@@ -76,11 +76,9 @@ watch(() => props.show, (isOpen) => {
 <template>
     <div v-if="show" class="modal-wrapper">
         <!-- overlay -->
-        <div class="overlay" @click="onClose" />
-
+        <div class="overlay" />
         <!-- backdrop -->
         <div class="modal-backdrop custom-backdrop" />
-
         <!-- modal -->
         <div class="modal" role="dialog" aria-modal="true" tabindex="-1">
             <form class="modal-dialog" @submit.prevent="submitReview">
@@ -91,15 +89,13 @@ watch(() => props.show, (isOpen) => {
                         </h4>
                         <button type="button" class="btn-close" @click="onClose" />
                     </div>
-
                     <div class="modal-body">
-                        <!-- Email -->
+                        <!-- email -->
                         <div class="mb-3">
                             <label class="form-label">Email</label>
                             <input type="email" class="form-control" :value="reviewData.email" readonly />
                         </div>
-
-                        <!-- Rating -->
+                        <!-- rating -->
                         <div class="mb-3">
                             <label class="form-label">Voto</label>
                             <div class="star-rating">
@@ -109,19 +105,17 @@ watch(() => props.show, (isOpen) => {
                                 </span>
                             </div>
                         </div>
-
-                        <!-- Comment -->
+                        <!-- comment -->
                         <div class="mb-3">
                             <label class="form-label">Commento</label>
                             <textarea v-model="reviewData.comment" class="form-control" rows="4" required />
                         </div>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" @click="onClose">
                             Annulla
                         </button>
-                        <button type="submit" class="btn btn-primary" :disabled="isLoading">
+                        <button type="submit" class="btn btn-submit" :disabled="isLoading">
                             <span v-if="isLoading" class="spinner-border spinner-border-sm me-2" />
                             {{ isLoading ? 'Processing...' : 'Send review' }}
                         </button>
@@ -163,6 +157,11 @@ watch(() => props.show, (isOpen) => {
 
     .star.active {
         color: #f5c518;
+    }
+
+    .btn-submit {
+        color: $color-white;
+        background-color: $color-primary-400;
     }
 }
 </style>

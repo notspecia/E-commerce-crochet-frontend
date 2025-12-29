@@ -9,7 +9,7 @@ export const PostMessageContact = async (messageContact: MessageContact): Promis
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            data: messageContact, // Strapi 5 vuole sempre data: {}
+            data: messageContact,
         }),
     });
 

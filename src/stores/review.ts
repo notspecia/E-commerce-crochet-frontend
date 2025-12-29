@@ -25,13 +25,13 @@ export const useReviewsStore = defineStore('reviews', () => {
 
     /* ------------ACTIONS------------- */
     // function to fetch reviews by productDocumentId of a product
-    const fetchReviews = async (idDocument: string): Promise<void> => {
+    const fetchReviews = async (productId: string): Promise<void> => {
         try {
             stateReviews.isLoading = true;
             // costruzione query string per filtrare le recensioni per productDocumentId
             const queryString = qs.stringify({
                 filters: {
-                    productDocumentId: { $eq: idDocument },
+                    productDocumentId: { $eq: productId },
                     approved: { $eq: true }
                 }
             });

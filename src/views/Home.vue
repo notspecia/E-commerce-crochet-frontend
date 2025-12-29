@@ -32,7 +32,32 @@ const router = useRouter();
     TODO fallback testo se il video non parte errore da gestire per ogni lingua
   Il tuo browser non supporta il video.
   </video> -->
+  <p class="w-50">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum dignissimos porro repellat quam sed
+    voluptatem
+    aperiam molestias quisquam illum maiores debitis unde modi earum voluptatibus quod dicta, officia a illo.
+    Ipsam, ad facere? Odit ullam eveniet ea cumque veniam. Quae dignissimos recusandae reprehenderit iure aperiam,
+    aspernatur fugiat voluptatum esse quo dolores molestiae corporis dolorum dolorem delectus consectetur laudantium!
+    Officia, quisquam!
+    Soluta doloremque beatae consequatur doloribus reiciendis id eos, quam voluptates, necessitatibus consequuntur
+    cupiditate veritatis asperiores aut! Ullam earum delectus, ratione beatae error repudiandae animi temporibus.
+    Provid
+    Itaque distinctio velit nam non nisi nostrum animi, expedita quaerat. Repellat cumque, nesciunt minus accusantium
+    quos maiores at distinctio voluptatum dolores et nulla, ipsam autem aut labore quidem expedita. Asperiores!</p>
+
+  <p class="w-50 float-end">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum dignissimos porro repellat
+    quam sed
+    voluptatem
+    aperiam molestias quisquam illum maiores debitis unde modi earum voluptatibus quod dicta, officia a illo.
+    Ipsam, ad facere? Odit ullam eveniet ea cumque veniam. Quae dignissimos recusandae reprehenderit iure aperiam,
+    aspernatur fugiat voluptatum esse quo dolores molestiae corporis dolorum dolorem delectus consectetur laudantium!
+    Officia, quisquam!
+    Soluta doloremque beatae consequatur doloribus reiciendis id eos, quam voluptates, necessitatibus consequuntur
+    cupiditate veritatis asperiores aut! Ullam earum delectus, ratione beatae error repudiandae animi temporibus.
+    Provid
+    Itaque distinctio velit nam non nisi nostrum animi, expedita quaerat. Repellat cumque, nesciunt minus accusantium
+    quos maiores at distinctio voluptatum dolores et nulla, ipsam autem aut labore quidem expedita. Asperiores!</p>
 </template>
+
 
 
 <style scoped lang="scss">
