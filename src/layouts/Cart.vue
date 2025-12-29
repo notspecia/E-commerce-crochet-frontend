@@ -161,10 +161,10 @@ const goDetailProduct = (documentId: string): void => {
 
         .quantity-button {
             color: $color-black;
-            border: 1px solid $color-primary;
+            border: 1px solid $color-primary-600;
 
             &:hover {
-                background-color: $color-secondary;
+                background-color: $color-primary-200;
             }
         }
 

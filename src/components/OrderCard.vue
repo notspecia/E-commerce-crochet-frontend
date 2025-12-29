@@ -8,7 +8,7 @@ const props = defineProps<{
 
 
 <template>
-    <div class="col-12">
+    <div class="col-12 col-lg-6 g-5">
         <div class="order-item">
             <!-- header (data info shipping)-->
             <div class="d-flex justify-content-between align-items-start w-100">
@@ -52,7 +52,7 @@ const props = defineProps<{
 
 <style lang="scss" scoped>
 .order-item {
-    width: 50%;
+    width: 100%;
     background: $color-white;
     color: $color-gray-600;
     font-family: $font-family-base;
@@ -60,10 +60,10 @@ const props = defineProps<{
     padding: 20px;
     border-radius: 2px;
     margin: 0 auto;
-    box-shadow: 11px 12px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 11px 12px 10px rgba(0, 0, 0, 0.2);
 
     .order-id {
-        color: $color-primary;
+        color: $color-primary-400;
         font-size: 0.9rem;
         margin-bottom: 7px;
     }

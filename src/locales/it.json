@@ -2,7 +2,7 @@
     "it": {
         "fullName": "Italiano",
         "global": {
-            "goBack": "Vai indietro"
+            "goBack": "Torna indietro"
         },
         "navbar": {
             "home": "Home",

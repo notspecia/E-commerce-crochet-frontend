@@ -8,7 +8,6 @@ import type Review from '@/models/Review.model';
 import qs from 'qs';
 
 
-
 export const useReviewsStore = defineStore('reviews', () => {
 
     /* IMPORTS PINIA USER and TOAST */
@@ -50,6 +49,7 @@ export const useReviewsStore = defineStore('reviews', () => {
         try {
             const response = await PostReview(`${API_BASE_URL}/api/reviews`, review, userStore.stateUser.bearerToken);
             console.log(response);
+            toastStore.addToast('light', 'la tua recensione è stata inviata con successo!')
             return response;
         } catch (error: any) {
             throw error;

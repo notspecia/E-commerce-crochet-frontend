@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router';
 import { useReviewsStore } from '@/stores/review';
 import { useProductStore } from '@/stores/product';
@@ -10,7 +10,7 @@ import type Review from '@/models/Review.model'
 
 
 /* PROPS */
-defineProps<{
+const props = defineProps<{
     show: boolean
 }>();
 
@@ -29,6 +29,7 @@ const productStore = useProductStore();
 const userStore = useUserStore();
 const toastStore = useToastStore();
 
+
 /* REACTIVE */
 const reviewData = reactive<Review>({
     productDocumentId: productStore.stateProduct.product?.documentId || '',
@@ -40,25 +41,36 @@ const reviewData = reactive<Review>({
     approved: false
 });
 
-/* FUNCTIONS */
-// REVIEW CHECK LOGIN
-const onWriteReview = (): void => {
-    if (!userStore.isLoggedIn) {
-        router.push('/register');
-        toastStore.addToast("light", "Devi essere registrato per poter effettuare un ordine!");
-    }
-};
+/* REF */
+const isLoading = ref<boolean>(false);
 
+
+/* FUNCTIONS */
 // funzione per emettere gli eventi di chiusura tramite X LABEL
 const onClose = (): void => {
     emit('close');
 }
 
-// invio della recensione
+// invio della recensione + cpntrollo loggato user
 const submitReview = async () => {
     console.log(reviewData);
+    isLoading.value = true;
     await reviewStore.createReview(reviewData);
+    isLoading.value = false;
+    emit('close');
 }
+
+
+/* WATCHS */
+// used for check when modal is open if the user is logged and can write a review
+watch(() => props.show, (isOpen) => {
+    if (isOpen && !userStore.isLoggedIn) {
+        emit('close');
+        router.push('/register');
+        toastStore.addToast('light', 'Devi essere registrato per scrivere una recensione');
+    }
+});
+
 </script>
 
 
@@ -68,55 +80,57 @@ const submitReview = async () => {
 
     <div v-if="show">
         <div class="modal-backdrop custom-backdrop" role="dialog" aria-modal="true" tabindex="-1" />
+
         <div class="modal" tabindex="-1" role="dialog" aria-modal="true">
-            <div class="modal-dialog">
+            <form class="modal-dialog" @submit.prevent="submitReview">
                 <div class="modal-content text-black">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="reviewModalLabel">Scrivi una recensione</h5>
-                        <button type="button" class="btn-close" @click="onClose"></button>
+                        <h4 class="modal-title" id="reviewModalLabel">
+                            Scrivi una recensione
+                        </h4>
+                        <button type="button" class="btn-close" @click="onClose" />
                     </div>
-                    <div class="modal-body">
-                        <form @submit.prevent="submitReview">
-                            <div class="modal-body">
-                                <!-- Email -->
-                                <div class="mb-3">
-                                    <label class="form-label">Email</label>
-                                    <input type="email" class="form-control" :value="reviewData.email" readonly />
-                                </div>
 
-                                <!-- Rating -->
-                                <div class="mb-3">
-                                    <label class="form-label">Voto</label>
-                                    <div class="star-rating">
-                                        <span v-for="star in 5" :key="star" class="star"
-                                            :class="{ active: star <= reviewData.rating }"
-                                            @click="reviewData.rating = star">
-                                            ★
-                                        </span>
-                                    </div>
-                                </div>
-                                <!-- Comment -->
-                                <div class=" mb-3">
-                                    <label class="form-label">Commento</label>
-                                    <textarea v-model="reviewData.comment" class="form-control" rows="4"
-                                        required></textarea>
-                                </div>
+                    <div class="modal-body">
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" :value="reviewData.email" readonly />
+                        </div>
+
+                        <!-- Rating -->
+                        <div class="mb-3">
+                            <label class="form-label">Voto</label>
+                            <div class="star-rating">
+                                <span v-for="star in 5" :key="star" class="star"
+                                    :class="{ active: star <= reviewData.rating }" @click="reviewData.rating = star">
+                                    ★
+                                </span>
                             </div>
-                        </form>
+                        </div>
+
+                        <!-- Comment -->
+                        <div class="mb-3">
+                            <label class="form-label">Commento</label>
+                            <textarea v-model="reviewData.comment" class="form-control" rows="4" required />
+                        </div>
                     </div>
+
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="onClose">
+                        <button type="button" class="btn btn-secondary" @click="onClose">
                             Annulla
                         </button>
-                        <button type="submit" class="btn btn-primary">
-                            Invia recensione
+                        <button type="submit" class="btn btn-primary" :disabled="isLoading">
+                            <span v-if="isLoading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+                            {{ isLoading ? 'Processing...' : 'Send review' }}
                         </button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </template>
+
 
 <style scoped lang="scss">
 .modal-backdrop {
@@ -131,7 +145,7 @@ const submitReview = async () => {
 .modal-content {
     width: 43vw;
 
-    @media (max-width: $breakpoint-md) {
+    @media (max-width: $breakpoint-lg) {
         width: 90vw
     }
 

@@ -5,6 +5,7 @@ import { useUserStore } from '@/stores/user';
 import { useOrdersStore } from '@/stores/orders';
 import OrderCard from '@/components/OrderCard.vue';
 import Loader from '@/components/Loader.vue';
+import GoBack from '@/components/GoBack.vue';
 
 
 /* ROUTER */
@@ -30,6 +31,8 @@ onMounted(() => {
 <template>
     <section class="py-5">
         <h2 class="mb-5 header">I tuoi ordini</h2>
+        <!-- go to previous route -->
+        <GoBack />
 
         <!-- caricamento ordini loader -->
         <Loader v-if="ordersStore.stateOrders.isLoading" />
@@ -43,8 +46,8 @@ onMounted(() => {
             </button>
         </div>
         <!-- card preview degli ordini -->
-        <div v-else class="row gap-5">
-            <OrderCard v-for="order in ordersStore.stateOrders.orders" :key="order.documentId" :order="order" />
+        <div v-else class="row">
+            <OrderCard v-for="(order, index) in ordersStore.stateOrders.orders" :key="index" :order="order" />
         </div>
     </section>
 </template>
