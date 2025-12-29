@@ -29,6 +29,8 @@ const productStore = useProductStore();
 const userStore = useUserStore();
 const toastStore = useToastStore();
 
+/* REF */
+const isLoading = ref<boolean>(false);
 
 /* REACTIVE */
 const reviewData = reactive<Review>({
@@ -38,11 +40,7 @@ const reviewData = reactive<Review>({
     rating: 0,
     comment: '',
     originLang: locale.value,
-    approved: false,
 });
-
-/* REF */
-const isLoading = ref<boolean>(false);
 
 
 /* FUNCTIONS */
@@ -69,7 +67,6 @@ watch(() => props.show, (isOpen) => {
         toastStore.addToast('light', 'Devi essere registrato per scrivere una recensione');
     }
 });
-
 </script>
 
 

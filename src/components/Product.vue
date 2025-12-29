@@ -17,15 +17,15 @@ const cartStore = useCartStore();
 
 /* MARKDOWNS CONVERTER */
 const md = new MarkdownIt();
-
 const descriptionMarkdown = computed((): string => {
     return md.render(props.product.description || ''); // conversione Markdown in HTML 
 });
 
 
 /* REF */
-const quantity = ref<number>(1); // quantità del prodotto da aggiungere al carrello (default 1)
 const mainImage = ref<string>(props.product.images[0]?.url || ''); // immagine principale da far apparire in alto tra le sclete del carosello
+const quantity = ref<number>(1); // quantità del prodotto da aggiungere al carrello (default 1)
+const isLoading = ref<boolean>(false);
 
 
 /* FUNCTIONS */
@@ -35,8 +35,10 @@ const setMainImage = (url: string) => {
 };
 // funzione handle per aggiungere il prodotto al carrello tramite il metodo addProduct del cartStore di pinia
 const handleAddToCart = async () => {
+    isLoading.value = true;
     await cartStore.addToCart(props.product, quantity.value);
     quantity.value = 1; // reset quantity after adding to cart
+    isLoading.value = false;
 }
 
 
@@ -77,10 +79,12 @@ onMounted(() => {
                 <i class="bi bi-plus" @click="quantity++"></i>
             </div>
             <!-- bottone per aggiungere il prodotto al carrello -->
-            <div class="button-add-product btn-one" @click="handleAddToCart">
+            <button class="btn button-add-product btn-one" :disabled="isLoading" @click="handleAddToCart">
+                <span v-if="isLoading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+                <template v-else></template>
                 <i class="bi bi-cart fs-4"></i>
                 <span>{{ $t('detailProduct.addToCart') }}</span>
-            </div>
+            </button>
             <!-- width height data -->
             <!-- <p class="fs-6 mt-1">
                 larghezza: {{ props.product.width }} cm <br />
@@ -182,7 +186,7 @@ onMounted(() => {
         justify-content: center;
         align-items: center;
         gap: 0.7rem;
-        width: 90%;
+        width: 80%;
         font-size: 1.3rem;
         font-family: $font-family-hand;
         font-weight: $font-weight-normal;

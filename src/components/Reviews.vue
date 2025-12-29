@@ -69,7 +69,7 @@ onMounted(() => {
         </div>
     </div>
 
-    <button class="btn btn-one mb-5" @click="handleReview"> scrivi recensione</button>
+    <button class="btn btn-one mb-5" @click="handleReview">Scrivi recensione</button>
 
     <!-- pulsante add recensione -->
     <ModalReview :show="showModalReview" @close="handleReview" />
