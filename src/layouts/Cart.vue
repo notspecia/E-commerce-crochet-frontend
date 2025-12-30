@@ -157,6 +157,11 @@ const goDetailProduct = (slug: string): void => {
             object-fit: cover;
             border-radius: 8px;
             cursor: pointer;
+
+            @media (max-width: $breakpoint-sm) {
+                width: 100px;
+                height: 120px;
+            }
         }
 
         .quantity-button {

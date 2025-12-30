@@ -14,11 +14,9 @@ import DropdownUser from '@/components/DropdownUser.vue';
 /* I18N LANG */
 const { locale } = useI18n(); // rendiamolo reattivo per il cambio lingua
 
-
 /* USEROUTER + USEROUTE */
 const router = useRouter();
 const route = useRoute();
-
 
 /* CART e USER PINIA STATE */
 const cartStore = useCartStore();
@@ -31,13 +29,12 @@ const showModalLogout = ref<boolean>(false); // stato per gestire l'apertura/chi
 
 
 /* COMPUTED */
+// computed per ottenere l'oggetto lingua selezionata in base al codice lingua (locale)
+const selectedLang = computed(() => languages.find(lang => lang.code === locale.value));
 // computed per mostrare/nascondere la navbar in diverse route.name
 const showNavbar = computed(() => {
     return !['orders', 'success-payment', 'checkout', 'login', 'register', 'privacy-policy'].includes(route.name as string);
 });
-
-// computed per ottenere l'oggetto lingua selezionata in base al codice lingua (locale)
-const selectedLang = computed(() => languages.find(lang => lang.code === locale.value));
 
 
 /* FUNCTIONS */
@@ -97,6 +94,7 @@ watchEffect(() => {
     <div v-if="menuIsOpen || cartStore.cartIsOpen" class="overlay" @click="handleOverlayClick" />
 
     <header class="pt-3" v-if="showNavbar">
+
         <!-- 
         hamburger icon per aprire menus, renderizzata sotto un brk specifico! 1 sezione (mobile) +
         componente mobile navbar con la tendina hamburger clicckato, passato booleano come props per montare il componente con animazione
@@ -132,8 +130,8 @@ watchEffect(() => {
         <!-- sezione a destra per gestione dei prodotti con carrello e select con lingua differente -->
         <div class="nav-right">
             <div class="nav-item dropdown dropdown-center">
-                <img v-if="selectedLang" :src="`${selectedLang.flag}`" :alt="selectedLang.label" class="flag me-1"
-                    :key="selectedLang.code" />
+                <img v-if="selectedLang" :src="selectedLang.flag" :alt="selectedLang.label" class="flag me-1" />
+
                 <a class="nav-link dropdown-toggle d-inline-block" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
                     {{ selectedLang?.label }}
@@ -141,7 +139,6 @@ watchEffect(() => {
                 <!-- dropdown menu per settare la lingua del sito -->
                 <DropdownLanguages @setLanguage="setLanguage" />
             </div>
-
             <!-- Gestione utente -->
             <div class="position-relative">
                 <!-- Utente non loggato -->
@@ -150,7 +147,6 @@ watchEffect(() => {
                 <!-- Utente loggato -->
                 <DropdownUser v-else @handleUser="handleUser" />
             </div>
-
             <!-- Modale di conferma per logout passati slot tempaltes della modale -->
             <ModalConfirm :show="showModalLogout" @close="closeModal">
                 <template #header>
@@ -164,15 +160,14 @@ watchEffect(() => {
                     <button type="button" class="btn btn-custom-primary" @click="confirmLogout">Conferma</button>
                 </template>
             </ModalConfirm>
-
             <!-- toggle icon per aprire carrello dal padre navbar + 
             componente cart con i prodotti dell'utente con animazione slide -->
             <div class="position-relative" @click="cartStore.toggleCart">
                 <span v-if="cartStore.cartCount > 0" class="cart-items">{{ cartStore.cartCount }}</span>
                 <i class="bi bi-cart cart"></i>
             </div>
-
         </div>
+
     </header>
 </template>
 
@@ -190,6 +185,16 @@ header {
     padding: 0 15px;
     margin-bottom: 60px;
 
+    // hamburger icon per aprire il menu mobile
+    .hamburger {
+        display: none; // nascosta per brk > 992px
+        cursor: pointer;
+
+        @media (max-width: $breakpoint-lg) {
+            display: block; // visibile per brk <= 992px (mobile)
+        }
+    }
+
     // immagine logo della navabr
     .logo {
         width: 120px;
@@ -203,15 +208,6 @@ header {
         }
     }
 
-    // hamburger icon per aprire il menu mobile
-    .hamburger {
-        display: none; // nascosta per brk > 992px
-        cursor: pointer;
-
-        @media (max-width: $breakpoint-lg) {
-            display: block; // visibile per brk <= 992px (mobile)
-        }
-    }
 
     // proprietà comuni di display per le 2 sezioni navbar 
     .nav-left,

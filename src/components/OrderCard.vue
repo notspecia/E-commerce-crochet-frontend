@@ -8,7 +8,8 @@ const props = defineProps<{
 
 
 <template>
-    <div class="col-12 col-lg-6 g-5">
+    <!-- col-lg6 -->
+    <div class="col-12 g-5">
         <div class="order-item">
             <!-- header (data info shipping)-->
             <div class="d-flex justify-content-between align-items-start w-100">
@@ -24,7 +25,7 @@ const props = defineProps<{
             </div>
             <!-- product list of the order -->
             <div class="py-4">
-                <div v-for="p in order.products" :key="p.documentId" class=" product-row">
+                <div v-for="p in order.products" :key="p.documentId" class="product-row">
                     <div class="d-flex justify-content-between">
                         <span>{{ p.productName }}</span>
                         <span>x{{ p.quantity }}</span>
@@ -42,7 +43,7 @@ const props = defineProps<{
                 </p>
                 <div>
                     <span>Totale: </span>
-                    <span class="total-value">{{ (order.amount_total_cents / 100).toFixed(2) }} €</span>
+                    <span class="total-value fs-5">{{ (order.amount_total_cents / 100).toFixed(2) }} €</span>
                 </div>
             </div>
         </div>
@@ -52,7 +53,7 @@ const props = defineProps<{
 
 <style lang="scss" scoped>
 .order-item {
-    width: 100%;
+    width: 80%;
     background: $color-white;
     color: $color-gray-600;
     font-family: $font-family-base;
@@ -64,18 +65,18 @@ const props = defineProps<{
 
     .order-id {
         color: $color-primary-400;
-        font-size: 0.9rem;
+        font-size: 1rem;
         margin-bottom: 7px;
     }
 
     .order-status {
-        font-size: 0.9rem;
+        font-size: 1.1rem;
         margin: 0;
     }
 
     .product-row,
     .total-value {
-        color: $color-gray-700;
+        color: $color-gray-800;
         font-weight: $font-weight-bold;
     }
 

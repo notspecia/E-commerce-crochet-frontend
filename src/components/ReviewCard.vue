@@ -62,13 +62,13 @@ const handleReading = (): void => {
     .review-user {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.2rem;
         font-weight: 600;
         color: $color-gray-900;
 
         img {
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
         }
     }
 

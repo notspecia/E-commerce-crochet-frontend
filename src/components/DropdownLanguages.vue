@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineEmits } from 'vue';
 import { languages } from '@/utils/costants';
 
 
@@ -17,7 +16,7 @@ const setLanguage = (lang: string): void => {
 <template>
     <ul class="dropdown-menu">
         <li v-for="lang in languages" :key="lang.code" class="dropdown-item" @click="setLanguage(lang.code)">
-            <img :src="`${lang.flag}`" :alt="lang.label" class="flag" :key="lang.code" />
+            <img :src="lang.flag" :alt="lang.label" class="flag" />
             {{ lang.label }}
         </li>
     </ul>
@@ -31,6 +30,5 @@ const setLanguage = (lang: string): void => {
     gap: 10px;
     color: $color-gray-900;
     margin: 5px 0;
-
 }
 </style>

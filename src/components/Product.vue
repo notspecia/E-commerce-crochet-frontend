@@ -81,9 +81,11 @@ onMounted(() => {
             <!-- bottone per aggiungere il prodotto al carrello -->
             <button class="btn button-add-product btn-one" :disabled="isLoading" @click="handleAddToCart">
                 <span v-if="isLoading" class="spinner-border spinner-border-sm me-2" role="status"></span>
-                <template v-else></template>
-                <i class="bi bi-cart fs-4"></i>
-                <span>{{ $t('detailProduct.addToCart') }}</span>
+                <template v-else>
+                    <span>{{ $t('detailProduct.addToCart') }}</span>
+                    <img src="@/assets/images/add-cart-white.png" alt="aggiungi al carrello" class="cart-add"
+                        @click="handleAddToCart"></img>
+                </template>
             </button>
             <!-- width height data -->
             <!-- <p class="fs-6 mt-1">
@@ -193,6 +195,12 @@ onMounted(() => {
         border-radius: 5px;
         border-top-left-radius: 25px;
         border-bottom-right-radius: 25px;
+
+        img.cart-add {
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+        }
     }
 }
 </style>

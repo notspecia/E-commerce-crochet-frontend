@@ -34,7 +34,8 @@ const handleAddToCart = async () => {
             @click="goProductDetails" />
         <div class="d-flex justify-content-between align-items-center mt-3">
             <p class="product-title mb-0" @click="goProductDetails">{{ props.product.title }}</p>
-            <i class="bi bi-cart-plus-fill cart-add fs-4" @click="handleAddToCart"></i>
+            <img src="@/assets/images/add-cart-dark.png" alt="aggiungi al carrello" class="cart-add"
+                @click="handleAddToCart"></img>
         </div>
         <p class="product-price">{{ props.product.price.toFixed(2) }}€</p>
     </div>
@@ -68,12 +69,13 @@ const handleAddToCart = async () => {
         font-family: $font-family-base;
     }
 
-    i.cart-add {
+    img.cart-add {
+        width: 35px;
+        height: 35px;
         cursor: pointer;
         transition: all 0.2s ease;
 
         &:hover {
-            color: $color-gray-900;
             transform: scale(1.1);
         }
     }

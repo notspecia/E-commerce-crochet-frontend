@@ -40,8 +40,8 @@ const emit = defineEmits(['close', 'setLanguage']);
             </li>
         </ul>
         <div class="nav-item dropdown">
-            <img v-if="selectedLang" :src="`/images/${selectedLang.flag}`" :alt="selectedLang.label" class="flag me-1"
-                :key="selectedLang.code" />
+            <img v-if="selectedLang" :src="selectedLang.flag" :alt="selectedLang.label" class="flag me-1" />
+
             <a class="nav-link dropdown-toggle d-inline-block" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
                 {{ selectedLang?.label }}
