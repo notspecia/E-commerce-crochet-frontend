@@ -29,16 +29,14 @@ const handleAddToCart = async () => {
 
 
 <template>
-    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 g-5">
-        <div class="product-item">
-            <img :src="`${API_BASE_URL}${props.product.images[0].url}`"
-                :alt="`${props.product.images[0].alternativeText}`" @click="goProductDetails" />
-            <div class="d-flex justify-content-between align-items-center mt-3">
-                <p class="product-title mb-0" @click="goProductDetails">{{ props.product.title }}</p>
-                <i class="bi bi-cart-plus-fill cart-add fs-4" @click="handleAddToCart"></i>
-            </div>
-            <p class="product-price">{{ props.product.price.toFixed(2) }}€</p>
+    <div class="product-item col-12 col-sm-6 col-lg-4 col-xl-3 g-5">
+        <img :src="`${API_BASE_URL}${props.product.images[0].url}`" :alt="`${props.product.images[0].alternativeText}`"
+            @click="goProductDetails" />
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <p class="product-title mb-0" @click="goProductDetails">{{ props.product.title }}</p>
+            <i class="bi bi-cart-plus-fill cart-add fs-4" @click="handleAddToCart"></i>
         </div>
+        <p class="product-price">{{ props.product.price.toFixed(2) }}€</p>
     </div>
 </template>
 

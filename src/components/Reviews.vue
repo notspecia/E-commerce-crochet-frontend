@@ -2,7 +2,9 @@
 import { onMounted, ref, watch } from 'vue';
 import { useReviewsStore } from '@/stores/review';
 import Loader from './Loader.vue';
-import ModalReview from '@/components/ModalReview.vue';
+import ModalReview from './ModalReview.vue';
+import ReviewCard from './ReviewCard.vue';
+
 
 /* PROPS */
 const props = defineProps<{
@@ -15,12 +17,10 @@ const reviewsStore = useReviewsStore();
 /* REF */
 const showModalReview = ref<boolean>(false); // stato per gestire l'apertura/chiusura della modale recensione prodotto
 
-
 /* FUNCTIONS */
 const handleReview = (): void => {
     showModalReview.value = !showModalReview.value; // inversione value attiva disattiva
 }
-
 
 /* WATCH */
 // watch di controllo per la pagina prodotti per la scrittura della recensione tramite modale
@@ -35,49 +35,36 @@ onMounted(() => {
 </script>
 
 
-<!-- TODO DA RIFARE ASPETTARE GRAFICA DIETRO -->
 <template>
     <h3 class="header title-line">
         <span>Customer Reviews</span>
     </h3>
 
-    <div class="reviews-container">
-        <!-- Caricamento -->
+    <div class="p-3">
+        <!-- caricamento -->
         <Loader v-if="reviewsStore.stateReviews.isLoading" />
-        <!-- Errore -->
+        <!-- errore generico-->
         <p v-else-if="reviewsStore.stateReviews.error" class="text-danger">
             {{ reviewsStore.stateReviews.error }}
         </p>
-        <!-- Nessuna recensione -->
+        <!-- nessuna recensione -->
         <p v-else-if="reviewsStore.stateReviews.reviews.length === 0">
             Nessuna recensione presente
         </p>
-
-        <!-- Recensioni -->
-        <div v-else class="reviews-list">
-            <div v-for="review in reviewsStore.stateReviews.reviews" :key="review.id" class="review-item mb-4">
-                <p class="review-user mb-1">
-                    {{ review.email }} –
-                    <img v-for="n in review.rating" :key="`star-${review.id}-${n}`"
-                        src="@/assets/images/star-rate.png" />
-                </p>
-                <p class="review-content">{{ review.comment }}</p>
-                <p class="review-date">
-                    {{ new Intl.DateTimeFormat('it-IT').format(new Date(review.publishedAt)) }}
-                </p>
-            </div>
+        <!-- Recensioni ciclate in card -->
+        <div v-else class="d-flex flex-column">
+            <ReviewCard v-for="(review, index) in reviewsStore.stateReviews.reviews" :key="index" :review="review" />
         </div>
     </div>
 
-    <button class="btn btn-one mb-5" @click="handleReview">Scrivi recensione</button>
-
     <!-- pulsante add recensione -->
+    <button class="btn btn-one mb-5" @click="handleReview">Scrivi recensione</button>
+    <!-- modale creazione recensione del prodotto -->
     <ModalReview :show="showModalReview" @close="handleReview" />
-
 </template>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 h3.title-line {
     display: flex;
     align-items: center;
@@ -93,58 +80,6 @@ h3.title-line {
 
     span {
         white-space: nowrap;
-    }
-}
-
-// container nella colonna descrittiva con tutte le recensioni overflow hidden scrollabili
-.reviews-container {
-    padding: 1.3rem;
-
-    p {
-        color: $color-gray-900;
-    }
-
-    // card item recensione singola
-    .review-item {
-        width: 50%;
-        background-color: $color-white;
-        padding: 1rem 1.2rem;
-        border-radius: 5px;
-
-        .review-user {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            font-weight: 600;
-            color: $color-gray-900;
-
-            img {
-                width: 16px;
-                height: 16px;
-            }
-        }
-
-        .review-content {
-            margin: 0.4rem 0;
-            line-height: 1.5;
-            font-size: 1rem;
-            color: $color-gray-800;
-        }
-
-        .review-date {
-            font-size: 0.85rem;
-            color: $color-gray-600;
-            float: right;
-        }
-    }
-
-    .reviews-list {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .text-danger {
-        color: red;
     }
 }
 </style>

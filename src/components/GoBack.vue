@@ -15,7 +15,7 @@
 .btn-back {
     display: inline-flex;
     align-items: center;
-    background-color: #f4f4f483;
+    background-color: #ffffffa1;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-family: $font-family-hand;
     font-weight: 600;
@@ -32,7 +32,7 @@
     }
 
     &:hover {
-        background-color: #e0e0e0a6;
+        background-color: #f2f2f2a6;
         color: $color-gray-900;
         transform: translateY(-3px);
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
