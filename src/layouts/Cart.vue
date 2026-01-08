@@ -128,12 +128,12 @@ const goDetailProduct = (slug: string): void => {
 
     // 65% width per brk <= 768 (tablet)
     @media (max-width: $breakpoint-lg) {
-        width: 65%;
+        width: 70%;
     }
 
     // 85% width per brk <= 576 (mobile)
     @media (max-width: $breakpoint-sm) {
-        width: 85%;
+        width: 90%;
     }
 }
 

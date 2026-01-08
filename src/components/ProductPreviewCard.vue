@@ -30,8 +30,10 @@ const handleAddToCart = async () => {
 
 <template>
     <div class="product-item col-12 col-sm-6 col-lg-4 col-xl-3 g-5">
-        <img :src="`${API_BASE_URL}${props.product.images[0].url}`" :alt="`${props.product.images[0].alternativeText}`"
-            @click="goProductDetails" />
+        <div class="d-flex justify-content-center">
+            <img :src="`${API_BASE_URL}${props.product.images[0].url}`"
+                :alt="`${props.product.images[0].alternativeText}`" @click="goProductDetails" />
+        </div>
         <div class="d-flex justify-content-between align-items-center mt-3">
             <p class="product-title mb-0" @click="goProductDetails">{{ props.product.title }}</p>
             <img src="@/assets/images/add-cart-dark.png" alt="aggiungi al carrello" class="cart-add"
@@ -52,10 +54,14 @@ const handleAddToCart = async () => {
         border-radius: 5px;
         cursor: pointer;
         transition: transform 0.3s ease-in-out;
+
+        @media (max-width: $breakpoint-md) {
+            width: 90%;
+        }
     }
 
     &:hover img {
-        transform: scale(1.02);
+        transform: scale(1.01);
     }
 
     .product-title {

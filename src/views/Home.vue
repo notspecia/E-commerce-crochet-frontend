@@ -70,7 +70,7 @@ const router = useRouter();
     display: block;
     margin: 0 auto;
 
-    @media (min-width: $breakpoint-sm) {
+    @media (min-width: $breakpoint-md) {
       display: none;
     }
   }
@@ -79,7 +79,7 @@ const router = useRouter();
   .header-desktop {
     display: none;
 
-    @media (min-width: $breakpoint-sm) {
+    @media (min-width: $breakpoint-md) {
       display: flex;
       justify-content: center;
       align-items: center;

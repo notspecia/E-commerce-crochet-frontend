@@ -253,14 +253,13 @@ header {
     }
 
     .btn-custom-primary {
-        background-color: $color-primary;
+        background-color: $color-primary-500;
         color: $color-white;
         border: none;
 
         &:hover {
             color: $color-white;
-            font-weight: $font-weight-bold;
-            background-color: darken($color-primary, 10%);
+            background-color: $color-primary-600;
         }
     }
 

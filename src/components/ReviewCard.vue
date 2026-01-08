@@ -32,6 +32,7 @@ const handleReading = (): void => {
 <template>
     <div class="review-item mb-4">
         <p class="review-user mb-1">
+            <i class="bi bi-person"></i>
             {{ review.email }} –
             <img v-for="n in review.rating" :key="`star-${review.id}-${n}`" src="@/assets/images/star-rate.png" />
         </p>
@@ -62,9 +63,13 @@ const handleReading = (): void => {
     .review-user {
         display: flex;
         align-items: center;
-        gap: 0.2rem;
+        gap: 0.3rem;
         font-weight: 600;
         color: $color-gray-900;
+
+        i {
+            font-size: 1.5rem;
+        }
 
         img {
             width: 18px;

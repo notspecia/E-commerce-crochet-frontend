@@ -14,6 +14,11 @@ const props = defineProps<{
     show: boolean
 }>();
 
+
+const voicesReview = ref([
+
+])
+
 /* I18N LANG */
 const { locale } = useI18n(); // recupero per settare la lingua di origine della recensione
 
@@ -80,36 +85,39 @@ watch(() => props.show, (isOpen) => {
         <div class="modal" role="dialog" aria-modal="true" tabindex="-1">
             <form class="modal-dialog" @submit.prevent="submitReview">
                 <div class="modal-content text-black">
-                    <div class="modal-header">
-                        <h4 class="modal-title">
-                            Scrivi una recensione
-                        </h4>
-                        <button type="button" class="btn-close" @click="onClose" />
-                    </div>
-                    <div class="modal-body">
-                        <!-- email -->
-                        <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-control" :value="reviewData.email" readonly />
+                    <div class="py-1 px-3">
+                        <div class="modal-header">
+                            <h4 class="modal-title">
+                                Rate us!
+                            </h4>
+                            <button type="button" class="btn-close" @click="onClose" />
                         </div>
-                        <!-- rating -->
-                        <div class="mb-3">
-                            <label class="form-label">Voto</label>
-                            <div class="star-rating">
-                                <span v-for="star in 5" :key="star" class="star"
-                                    :class="{ active: star <= reviewData.rating }" @click="reviewData.rating = star">
-                                    ★
-                                </span>
+                        <div class="modal-body">
+                            <p class="text-center mb-5"> Let us know what you like and where we can get better. Rate us
+                                and
+                                type responses below. Your opinion is important for us!</p>
+                            <div class="divisor w-50" />
+                            <!-- rating -->
+                            <div class="mb-3 d-flex flex-column align-items-center">
+                                <p class="rating text-center">Rate your experience</p>
+                                <div class="star-rating">
+                                    <span v-for="star in 5" :key="star" class="star"
+                                        :class="{ active: star <= reviewData.rating }"
+                                        @click="reviewData.rating = star">
+                                        ★
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                        <!-- comment -->
-                        <div class="mb-3">
-                            <label class="form-label">Commento</label>
-                            <textarea v-model="reviewData.comment" class="form-control" rows="4" required />
+                            <div class="divisor w-75" />
+                            <!-- comment -->
+                            <div class="mt-5 mb-2">
+                                <!-- <label class="form-label">Commento</label> -->
+                                <textarea v-model="reviewData.comment" class="form-control" rows="4" required />
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" @click="onClose">
+                        <button type="button" class="btn btn-secondary opacity-50" @click="onClose">
                             Annulla
                         </button>
                         <button type="submit" class="btn btn-submit" :disabled="isLoading">
@@ -139,26 +147,68 @@ watch(() => props.show, (isOpen) => {
     width: 43vw;
 
     @media (max-width: $breakpoint-lg) {
-        width: 90vw
+        width: 92vw
+    }
+
+    .divisor {
+        display: block;
+        margin: 10px auto;
+        height: 1px;
+        background-color: black;
+        border-radius: 120px;
+    }
+
+    .modal-title {
+        font-family: $font-family-hand;
+        font-size: 2.7rem;
+    }
+
+    .rating {
+        font-size: 1.2rem;
+        font-weight: $font-weight-bold;
+        text-align: center;
     }
 
     .star-rating {
-        font-size: 1.75rem;
+        display: flex;
+        flex-direction: row;
+        gap: 35px;
+        font-size: 1.85rem;
     }
 
     .star {
         cursor: pointer;
-        color: #ccc;
-        margin-right: 4px;
+        color: rgba(117, 117, 117, 0.412);
     }
 
     .star.active {
         color: #f5c518;
     }
 
-    .btn-submit {
-        color: $color-white;
-        background-color: $color-primary-400;
+    .modal-footer {
+        justify-content: space-between;
+        padding: 0;
+
+        .btn {
+            width: 50%;
+            color: $color-white;
+            padding: 18px;
+            border-radius: 0;
+            margin: 0;
+        }
+
+        .btn-submit {
+            border-bottom-right-radius: 5px;
+            background-color: $color-primary-500;
+
+            &:hover {
+                background-color: $color-primary-600;
+            }
+        }
+
+        .btn-secondary {
+            border-bottom-left-radius: 5px;
+        }
     }
 }
 </style>

@@ -24,7 +24,7 @@ import FormContactsMessage from '@/components/FormContactsMessage.vue';
 
 <style scoped lang="scss">
 h2 span {
-    color: $color-primary-700;
+    color: $color-primary-600;
     text-decoration: underline;
 }
 
@@ -32,11 +32,11 @@ h2 span {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    margin: 12vh 0 20vh;
+    margin: 10vh 0 20vh;
 
     // icons style
     .social-link {
-        font-size: 2.7rem;
+        font-size: 3rem;
         color: $color-gray-900;
 
         &:hover {
