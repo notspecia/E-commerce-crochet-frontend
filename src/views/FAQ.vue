@@ -18,7 +18,7 @@ const items = computed(() => tm('FAQ.items')); // TODO Prende array items accord
 
 
 <template>
-    <section class="w-75 mx-auto">
+    <section>
         <h2 class="header text-center mb-5">FAQ & Shipping</h2>
 
         <!-- DISCLAIMER TRADOTTI DA i18n -->
@@ -48,42 +48,51 @@ const items = computed(() => tm('FAQ.items')); // TODO Prende array items accord
 
 
 <style scoped lang="scss">
-p {
-    font-size: 1.3rem;
-    text-align: center;
-    margin-bottom: 30px;
+section {
+    width: 80%;
+    margin: 0 auto;
 
-    :deep(strong) {
-        color: $color-primary-800;
-        font-weight: $font-weight-bold;
-    }
-}
-
-.accordion {
-    margin-top: 90px;
-    --bs-accordion-color: black; // colore testo sempre nero
-    --bs-accordion-btn-color: black;
-    --bs-accordion-btn-bg: white;
-    --bs-accordion-active-color: black; // colore testo attivo
-    --bs-accordion-active-bg: white; // sfondo attivo
-    --bs-accordion-bg: white; // sfondo default
-    --bs-accordion-btn-focus-box-shadow: none;
-
-    .accordion-item:has(.accordion-button:not(.collapsed)) {
-        border: 2px solid $color-black;
-        // box-shadow: 9px 4px 20px 0 #ffffff;
+    @media (max-width: $breakpoint-lg) {
+        width: 100%;
     }
 
+    p {
+        font-size: 1.3rem;
+        text-align: center;
+        margin-bottom: 30px;
 
-    // accordion header contenuto qui e modificato
-    .accordion-header {
-        font-family: $font-family-base; // Cambia font
-        font-size: 1rem; // Cambia dimensione
-        padding: 5px 0;
+        :deep(strong) {
+            color: $color-primary-800;
+            font-weight: $font-weight-bold;
+        }
     }
 
-    .accordion-button:not(.collapsed) {
-        border: none;
+    .accordion {
+        margin-top: 90px;
+        --bs-accordion-color: black; // colore testo sempre nero
+        --bs-accordion-btn-color: black;
+        --bs-accordion-btn-bg: white;
+        --bs-accordion-active-color: black; // colore testo attivo
+        --bs-accordion-active-bg: white; // sfondo attivo
+        --bs-accordion-bg: white; // sfondo default
+        --bs-accordion-btn-focus-box-shadow: none;
+
+        .accordion-item:has(.accordion-button:not(.collapsed)) {
+            border: 2px solid $color-black;
+            // box-shadow: 9px 4px 20px 0 #ffffff;
+        }
+
+
+        // accordion header contenuto qui e modificato
+        .accordion-header {
+            font-family: $font-family-base; // Cambia font
+            font-size: 1rem; // Cambia dimensione
+            padding: 5px 0;
+        }
+
+        .accordion-button:not(.collapsed) {
+            border: none;
+        }
     }
 }
 </style>

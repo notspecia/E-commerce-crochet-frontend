@@ -18,10 +18,14 @@
 .nav-link a.router-link-active {
     background-color: #f4f4f482;
     font-weight: $font-weight-bold;
-    border: 1px solid $color-primary-200;
     border-radius: 5px;
     border-top-left-radius: 25px;
     border-bottom-right-radius: 25px;
+
+    // add border outline link aside navbar on mobile
+    @media (max-width: $breakpoint-sm) {
+        border: 1px solid $color-gray-600;
+    }
 
     &:hover {
         color: $color-black;

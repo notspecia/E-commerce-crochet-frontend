@@ -65,14 +65,22 @@ const handleAddToCart = async () => {
     }
 
     .product-title {
-        font-size: 1.5rem;
-        font-weight: $font-weight-bold;
+        font-size: 1.6rem;
+        font-family: $font-family-hand;
         cursor: pointer;
+
+        @media (max-width: $breakpoint-sm) {
+            font-size: 1.8rem;
+        }
     }
 
     .product-price {
-        font-size: 1.05rem;
+        font-size: 1.1rem;
         font-family: $font-family-base;
+
+        @media (max-width: $breakpoint-sm) {
+            font-size: 1.3rem;
+        }
     }
 
     img.cart-add {
@@ -82,7 +90,7 @@ const handleAddToCart = async () => {
         transition: all 0.2s ease;
 
         &:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
     }
 

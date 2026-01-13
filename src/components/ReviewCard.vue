@@ -33,7 +33,7 @@ const handleReading = (): void => {
     <div class="review-item mb-4">
         <p class="review-user mb-1">
             <i class="bi bi-person"></i>
-            {{ review.email }} –
+            {{ review.username }} –
             <img v-for="n in review.rating" :key="`star-${review.id}-${n}`" src="@/assets/images/star-rate.png" />
         </p>
         <p class="review-content mb-3">{{ reactiveReview }}</p>

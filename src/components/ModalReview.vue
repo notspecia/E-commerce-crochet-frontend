@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref, watch } from 'vue'
+import { reactive, ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router';
 import { useReviewsStore } from '@/stores/review';
 import { useProductStore } from '@/stores/product';
@@ -15,12 +15,10 @@ const props = defineProps<{
 }>();
 
 
-const voicesReview = ref([
-
-])
-
 /* I18N LANG */
 const { locale } = useI18n(); // recupero per settare la lingua di origine della recensione
+const { tm } = useI18n();
+
 
 /* ROUTER */
 const router = useRouter();
@@ -34,6 +32,7 @@ const productStore = useProductStore();
 const userStore = useUserStore();
 const toastStore = useToastStore();
 
+
 /* REF */
 const isLoading = ref<boolean>(false);
 
@@ -42,9 +41,25 @@ const reviewData = reactive<Review>({
     productDocumentId: productStore.stateProduct.product?.documentId || '',
     titleProduct: productStore.stateProduct.product?.title || '',
     email: userStore.stateUser.user?.email,
+    username: userStore.stateUser.user?.username || '',
     rating: 0,
     comment: '',
     originLang: locale.value,
+});
+
+/* COMPUTED */
+const reviewVoices = computed(() => tm('reviewVoices')); // array di frasi in base alla valutazione data
+const getVoiceMessage = computed((): string => {
+    switch (true) {
+        case reviewData.rating >= 1 && reviewData.rating < 3:
+            return reviewVoices.value[0];
+        case reviewData.rating >= 3 && reviewData.rating <= 4:
+            return reviewVoices.value[1];
+        case reviewData.rating >= 4:
+            return reviewVoices.value[2];
+        default:
+            return '';
+    }
 });
 
 
@@ -56,6 +71,10 @@ const onClose = (): void => {
 
 // invio della recensione + cpntrollo loggato user
 const submitReview = async () => {
+    if (reviewData.rating < 1) {
+        toastStore.addToast('danger', 'Devi selezionare una valutazione prima di inviare la recensione');
+        return;
+    }
     isLoading.value = true;
     await reviewStore.createReview(reviewData);
     isLoading.value = false;
@@ -111,8 +130,8 @@ watch(() => props.show, (isOpen) => {
                             <div class="divisor w-75" />
                             <!-- comment -->
                             <div class="mt-5 mb-2">
-                                <!-- <label class="form-label">Commento</label> -->
-                                <textarea v-model="reviewData.comment" class="form-control" rows="4" required />
+                                <label class="form-label" v-html="getVoiceMessage"></label>
+                                <textarea v-model="reviewData.comment" class="form-control" rows="4" />
                             </div>
                         </div>
                     </div>
@@ -130,7 +149,6 @@ watch(() => props.show, (isOpen) => {
         </div>
     </div>
 </template>
-
 
 
 <style scoped lang="scss">

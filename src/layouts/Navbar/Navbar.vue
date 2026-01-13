@@ -269,7 +269,7 @@ header {
         top: -2px;
         right: -12px;
         z-index: 1;
-        background-color: $color-primary-400;
+        background-color: $color-primary-600;
         color: $color-white;
         font-size: 0.8rem;
         font-family: $font-family-base;

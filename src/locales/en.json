@@ -12,7 +12,7 @@
         },
         "home": {
             "subtitle": "Discover our lovingly handmade plushies. Perfect as a gift or to decorate your home!",
-            "CTA": "Buy now!"
+            "CTA": "Browse products"
         },
         "products": {
             "title": "Products"
@@ -21,6 +21,11 @@
             "price": "Price",
             "addToCart": "Add to cart"
         },
+        "reviewVoices": [
+            "<strong>Ouch!</strong> please tell us what we can improve.",
+            "<strong>Good!</strong> could you tell us more about your experience?",
+            "<strong>Fantastic!</strong> we would like to know what you liked most."
+        ],
         "FAQ": {
             "title": "FAQ",
             "shipping": [

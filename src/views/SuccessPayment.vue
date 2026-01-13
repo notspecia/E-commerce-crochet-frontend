@@ -7,7 +7,7 @@
     <div class="conatiner-success-payment">
         <img class="success-image mb-4" src="@/assets/images/lucky-success.jpg" alt="Successo pagamento" />
         <h2 class="mb-2 fs-1">Pagamento completato!</h2>
-        <p class="lead">
+        <p class="lead text-center">
             Grazie mille per il tuo ordine! Riceverai aggiornamenti tramite email non appena l’ordine verrà elaborato.
         </p>
         <div class="d-flex justify-content-center gap-4 mt-4 w-100">

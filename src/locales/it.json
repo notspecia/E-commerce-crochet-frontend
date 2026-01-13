@@ -12,7 +12,7 @@
         },
         "home": {
             "subtitle": "Scopri i nostri pupazzi fatti a mano con amore. Perfetti come regalo o per decorare la tua casa!",
-            "CTA": "Acquista ora!"
+            "CTA": "Esplora i prodotti"
         },
         "products": {
             "title": "Prodotti"
@@ -21,6 +21,11 @@
             "price": "Prezzo",
             "addToCart": "Aggiungi al carrello"
         },
+        "reviewVoices": [
+            "<strong>Ouch!</strong> perfavore dicci su cosa possiamo migliorare.",
+            "<strong>Bene!</strong> potresti dirci di più riguardo alla tua esperienza?",
+            "<strong>Fantastico!</strong> ci piacerebbe sapere cosa ti è piaciuto di più."
+        ],
         "FAQ": {
             "title": "FAQ",
             "shipping": [

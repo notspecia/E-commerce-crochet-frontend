@@ -69,9 +69,10 @@ onMounted(() => {
         <!-- COLONNA DESTRA: DETTAGLI -->
         <div class="col-12 col-md-6">
             <h2 class="header my-1">{{ props.product.title }}</h2>
-            <p class="fs-4 my-4 price-block"> {{ props.product.price.toFixed(2) }}€</p>
             <!-- descrizioni aggiuntive sul prodotto  usando markdown-it converter con v-html -->
             <p class="fs-5 mt-4" v-html="descriptionMarkdown"></p>
+            <!-- prezzo -->
+            <p class="my-4 price-block"> {{ props.product.price.toFixed(2) }}€</p>
             <!-- bottone per modificare quantita del prodotto da aggiungere al carrello -->
             <div class="button-quantity mb-3">
                 <i class="bi bi-dash" @click="quantity--" :class="{ disabled: quantity === 1 }"></i>
@@ -120,22 +121,22 @@ onMounted(() => {
 
         // immagini selezionabili style
         .thumbnail {
-            width: 90px;
-            height: 90px;
+            width: 100px;
+            height: 100px;
             object-fit: cover;
             border: 2px solid transparent;
-            border-radius: 10px;
+            border-radius: 2px;
             cursor: pointer;
             transition: all 0.3s ease;
 
             // effetti hover images
             &:hover {
-                transform: scale(1.05);
+                transform: scale(1.025);
                 border-color: #aaa;
             }
 
             &.active {
-                border-color: $color-primary-900;
+                border-color: $color-primary-600;
             }
         }
     }
@@ -146,7 +147,8 @@ onMounted(() => {
     }
 
     .price-block {
-        font-family: $font-family-base;
+        font-family: $font-family-hand;
+        font-size: 2.4rem;
     }
 
     // bottone modifica quantita da aggiungere al carrello 
