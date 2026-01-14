@@ -79,7 +79,6 @@ export const useOrdersStore = defineStore('orders', () => {
             const sessionId = await CreateStripeSession(
                 `${API_BASE_URL}/api/orders`,
                 cartStore.productsSelected,
-                userId,
                 token
             );
 

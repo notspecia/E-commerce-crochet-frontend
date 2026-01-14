@@ -10,7 +10,7 @@ import type Order from "../models/Order.model";
  * @returns {Promise<string>} - ID della sessione Stripe.
  * @throws {Error} - Se la richiesta HTTP fallisce o la sessione non viene creata.
  */
-export const CreateStripeSession = async (path: string, products: ProductSelected[], userId: number, token: string): Promise<string> => {
+export const CreateStripeSession = async (path: string, products: ProductSelected[], token: string): Promise<string> => {
     const response = await fetch(path, {
         method: "POST",
         headers: {
@@ -20,10 +20,7 @@ export const CreateStripeSession = async (path: string, products: ProductSelecte
         credentials: "include",
         body: JSON.stringify({
             // dati da inviare al backend per la creazione della sessione stripe presi dal backend come CTX.REQUEST.BODY.DATA
-            data: {
-                userId,
-                products
-            }
+            data: { products }
         }),
     });
 

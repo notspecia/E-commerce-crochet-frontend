@@ -13,5 +13,4 @@ export default interface Order {
     shipping_address: Shipping, // dati di spedizione utente
     phone_number: string,
     customer_email: string,
-    userId: number,
 }

@@ -141,7 +141,7 @@ watch(() => props.show, (isOpen) => {
                         </button>
                         <button type="submit" class="btn btn-submit" :disabled="isLoading">
                             <span v-if="isLoading" class="spinner-border spinner-border-sm me-2" />
-                            {{ isLoading ? 'Processing...' : 'Send review' }}
+                            {{ isLoading ? 'Processing...' : 'Send review' }} <i class="bi bi-send ms-1"></i>
                         </button>
                     </div>
                 </div>
