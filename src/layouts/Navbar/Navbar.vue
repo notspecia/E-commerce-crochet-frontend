@@ -105,6 +105,9 @@ watchEffect(() => {
                 :selectedLang="selectedLang" />
         </transition>
 
+        <!-- Modale di conferma per logout passati slot tempaltes della modale -->
+        <ModalConfirm :show="showModalLogout" @close="closeModal" />
+
         <!-- immagine logo con click render alla HOME "/" + linka voci del sito 2 sezione -->
         <nav class="nav-left">
             <RouterLink to="/">
@@ -147,19 +150,6 @@ watchEffect(() => {
                 <!-- Utente loggato -->
                 <DropdownUser v-else @handleUser="handleUser" />
             </div>
-            <!-- Modale di conferma per logout passati slot tempaltes della modale -->
-            <ModalConfirm :show="showModalLogout" @close="closeModal">
-                <template #header>
-                    <h5 class="modal-title">Vuoi davvero uscire?</h5>
-                </template>
-                <template #default>
-                    <p>Sei sicuro di voler disconnetterti dal tuo account?</p>
-                </template>
-                <template #footer>
-                    <button type="button" class="btn btn-secondary opacity-50" @click="closeModal">Chiudi</button>
-                    <button type="button" class="btn btn-custom-primary" @click="confirmLogout">Conferma</button>
-                </template>
-            </ModalConfirm>
             <!-- toggle icon per aprire carrello dal padre navbar + 
             componente cart con i prodotti dell'utente con animazione slide -->
             <div class="position-relative" @click="cartStore.toggleCart">
