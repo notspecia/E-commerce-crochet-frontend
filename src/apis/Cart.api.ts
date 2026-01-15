@@ -9,7 +9,7 @@ import type ProductSelected from "../models/ProductSelected.model";
 export const syncUserCart = async (path: string, token: string, items: ProductSelected[]) => {
 
     const userStore = useUserStore();
-    if (!userStore.isLoggedIn) return; // Se l'utente non è loggato, esci dalla funzione
+    if (!userStore.isLoggedIn) return; // se l'utente non è loggato, esci dalla funzione
 
     const response = await fetch(path,
         {
@@ -56,7 +56,7 @@ export const fetchUserCart = async (path: string, token: string) => {
 /*
  POST → Crea nuovo carrello vuoto per l’utente
  */
-export const createUserCart = async (path: string, userId: number, token: string,) => {
+export const createUserCart = async (path: string, token: string,) => {
 
     const response = await fetch(path, {
         method: "POST",
@@ -66,7 +66,6 @@ export const createUserCart = async (path: string, userId: number, token: string
         },
         body: JSON.stringify({
             data: {
-                userId,
                 items: [],
             },
         }),

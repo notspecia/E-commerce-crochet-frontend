@@ -9,7 +9,6 @@ import { API_BASE_URL } from '../utils/costants';
 import type Order from '../models/Order.model';
 
 
-
 export const useOrdersStore = defineStore('orders', () => {
 
     /* IMPORTS PINIA AND REACTIVE PRODUCTS */
@@ -42,6 +41,7 @@ export const useOrdersStore = defineStore('orders', () => {
     //         .filter(Boolean) as ProductCart[];
     // });
 
+
     /* ---------------------------- ACTIONS ---------------------------- */
     // funzione per fetchare l array dei orders[] con tutti gli ordini dell'user loggato 
     const fetchOrders = async (): Promise<void> => {
@@ -49,16 +49,14 @@ export const useOrdersStore = defineStore('orders', () => {
             const userId = userStore.stateUser.user?.id // setting dell'userId da usare per check del carrello e creazione
             stateOrders.isLoading = true; // Imposta isLoading a true prima di iniziare il recupero
             const response = await fetchUserOrders(
-                `${API_BASE_URL}/api/orders?filters[userId][$eq]=${userId}`,
+                `${API_BASE_URL}/api/orders`,
                 userStore.stateUser.bearerToken
             );
             stateOrders.orders = response; // assegna gli ordini DATA recuperati alla ref 
         } catch (error) {
             stateOrders.error = `${error}`;
         } finally {
-            setTimeout(() => {
-                stateOrders.isLoading = false;
-            }, 500);
+            stateOrders.isLoading = false;
         };
     }
 

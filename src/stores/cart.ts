@@ -33,7 +33,6 @@ export const useCartStore = defineStore("cart", () => {
     const productsSelected = ref<ProductSelected[]>([]); // stato array di prodotti nel carrello (solo documentId prodtto e la quantità) REMOTE
     const cartId = ref<string | null>(null); // stato per salvare il cartId del carrello remoto (documentId del carrello nel DB)
 
-
     /* -- COMPUTED -- */
     // computed per trasformare i prodotti selezionati in un array di prodotti completi da renderizzare nel cart COMPONENTE + con quantità 
     const productsCart = computed<ProductCart[]>(() => {
@@ -132,9 +131,8 @@ export const useCartStore = defineStore("cart", () => {
         if (!userStore.isLoggedIn) return; // Se l'utente non è loggato, esci dalla funzione
 
         try {
-            const userId = userStore.stateUser.user?.id // setting dell'userId da usare per check del carrello e creazione
             const data = await fetchUserCart(
-                `${API_BASE_URL}/api/carts?filters[userId][$eq]=${userId}`,
+                `${API_BASE_URL}/api/carts`,
                 userStore.stateUser.bearerToken
             );
 
@@ -146,8 +144,7 @@ export const useCartStore = defineStore("cart", () => {
                 console.log("Carrello caricato dal server:", cart.items);
             } else {
                 // creazione carrello
-                if (!userId) return;
-                const response = await createUserCart(`${API_BASE_URL}/api/carts`, userId, userStore.stateUser.bearerToken);
+                const response = await createUserCart(`${API_BASE_URL}/api/carts`, userStore.stateUser.bearerToken);
                 cartId.value = response.documentId;
                 productsSelected.value = [];
             }
