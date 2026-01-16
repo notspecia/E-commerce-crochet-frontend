@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref, computed, watch } from 'vue'
+import { reactive, ref, computed, watch, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router';
 import { useReviewsStore } from '@/stores/review';
 import { useProductStore } from '@/stores/product';
@@ -66,6 +66,8 @@ const getVoiceMessage = computed((): string => {
 /* FUNCTIONS */
 // funzione per emettere gli eventi di chiusura tramite X LABEL
 const onClose = (): void => {
+    reviewData.rating = 0;
+    reviewData.comment = '';
     emit('close');
 }
 

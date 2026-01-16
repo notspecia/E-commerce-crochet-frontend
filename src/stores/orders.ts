@@ -5,7 +5,6 @@ import { useProductsStore } from './products';
 import { useUserStore } from './user';
 import { useCartStore } from './cart';
 import { CreateStripeSession, fetchUserOrders } from '../apis/Order.api';
-import { API_BASE_URL } from '../utils/costants';
 import type Order from '../models/Order.model';
 
 
@@ -48,10 +47,7 @@ export const useOrdersStore = defineStore('orders', () => {
         try {
             const userId = userStore.stateUser.user?.id // setting dell'userId da usare per check del carrello e creazione
             stateOrders.isLoading = true; // Imposta isLoading a true prima di iniziare il recupero
-            const response = await fetchUserOrders(
-                `${API_BASE_URL}/api/orders`,
-                userStore.stateUser.bearerToken
-            );
+            const response = await fetchUserOrders(userStore.stateUser.bearerToken);
             stateOrders.orders = response; // assegna gli ordini DATA recuperati alla ref 
         } catch (error) {
             stateOrders.error = `${error}`;
@@ -75,7 +71,6 @@ export const useOrdersStore = defineStore('orders', () => {
 
             // chiamata API modulare
             const sessionId = await CreateStripeSession(
-                `${API_BASE_URL}/api/orders`,
                 cartStore.productsSelected,
                 token
             );

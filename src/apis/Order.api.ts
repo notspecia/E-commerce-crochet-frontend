@@ -1,5 +1,6 @@
 import type ProductSelected from "../models/ProductSelected.model";
 import type Order from "../models/Order.model";
+import { API_BASE_URL } from "@/utils/costants";
 
 
 /**
@@ -10,8 +11,8 @@ import type Order from "../models/Order.model";
  * @returns {Promise<Order[]>} - Lista degli ordini dell’utente.
  * @throws {Error} - Se la richiesta HTTP fallisce.
  */
-export const fetchUserOrders = async (path: string, token: string): Promise<Order[]> => {
-    const response = await fetch(path, {
+export const fetchUserOrders = async (token: string): Promise<Order[]> => {
+    const response = await fetch(`${API_BASE_URL}/api/orders`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -38,8 +39,8 @@ export const fetchUserOrders = async (path: string, token: string): Promise<Orde
  * @returns {Promise<string>} - ID della sessione Stripe.
  * @throws {Error} - Se la richiesta HTTP fallisce o la sessione non viene creata.
  */
-export const CreateStripeSession = async (path: string, products: ProductSelected[], token: string): Promise<string> => {
-    const response = await fetch(path, {
+export const CreateStripeSession = async (products: ProductSelected[], token: string): Promise<string> => {
+    const response = await fetch(`${API_BASE_URL}/api/orders`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

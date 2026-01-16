@@ -62,6 +62,7 @@ const confirmLogout = (): void => {
     userStore.logoutUser();
     showModalLogout.value = false;
 }
+
 const closeModal = (): void => {
     showModalLogout.value = false;
 }
@@ -106,7 +107,7 @@ watchEffect(() => {
         </transition>
 
         <!-- Modale di conferma per logout passati slot tempaltes della modale -->
-        <ModalConfirm :show="showModalLogout" @close="closeModal" />
+        <ModalConfirm :show="showModalLogout" @close="closeModal" @logout="confirmLogout" />
 
         <!-- immagine logo con click render alla HOME "/" + linka voci del sito 2 sezione -->
         <nav class="nav-left">
@@ -239,17 +240,6 @@ header {
         &:hover {
             color: $color-gray-900;
             transform: scale(1.1);
-        }
-    }
-
-    .btn-custom-primary {
-        background-color: $color-primary-500;
-        color: $color-white;
-        border: none;
-
-        &:hover {
-            color: $color-white;
-            background-color: $color-primary-600;
         }
     }
 

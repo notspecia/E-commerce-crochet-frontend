@@ -6,12 +6,18 @@ defineProps<{
 }>();
 
 /* EMITS */
-const emit = defineEmits(['close']);
+const emits = defineEmits<{
+    (e: 'close'): void
+    (e: 'logout'): void
+}>();
 
 /* FUNCTIONS */
 // funzione per emettere gli eventi di chiusura tramite X LABEL
 const onClose = (): void => {
-    emit('close');
+    emits('close');
+}
+const onConfirmLogout = (): void => {
+    emits('logout');
 }
 </script>
 
@@ -30,8 +36,8 @@ const onClose = (): void => {
                         <p>Sei sicuro di voler disconnetterti dal tuo account?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary opacity-50" @click="closeModal">Chiudi</button>
-                        <button type="button" class="btn btn-custom-primary" @click="confirmLogout">Conferma</button>
+                        <button type="button" class="btn btn-secondary opacity-50" @click="onClose">Chiudi</button>
+                        <button type="button" class="btn btn-custom-primary" @click="onConfirmLogout">Conferma</button>
                     </div>
                 </div>
             </div>
@@ -39,4 +45,17 @@ const onClose = (): void => {
     </div>
 </template>
 
-<style scoped lang="scss"></style>
+
+
+<style scoped lang="scss">
+.btn-custom-primary {
+    background-color: $color-primary-500;
+    color: $color-white;
+    border: none;
+
+    &:hover {
+        color: $color-white;
+        background-color: $color-primary-600;
+    }
+}
+</style>
