@@ -11,7 +11,7 @@ const router = useRouter();
   <h1 class="visually-hidden">Giogi Crochet pupazzi uncinetto</h1>
 
   <!-- HERO SECTION -->
-  <div class="header">
+  <header>
     <!-- mobile -->
     <img src="@/assets/images/giogi-header-mobile.png" alt="Giogi Crochet – logo del sito" class="header-mobile" />
     <!-- desktop -->
@@ -19,10 +19,9 @@ const router = useRouter();
       <img src="@/assets/images/giogi-header-desktop-label.png" class="label" alt="Testo hero" />
       <img src="@/assets/images/giogi-header-desktop-figure.png" class="figure" alt="Figura persona con animale" />
     </div>
-  </div>
+  </header>
 
   <!-- <h2 class="mt-5">{{ $t('home.subtitle') }}</h2> -->
-
   <div class="text-center my-5">
     <button class="btn btn-one mb-5" @click="() => router.push(`/products`)">
       {{ $t('home.CTA') }}
@@ -76,7 +75,7 @@ const router = useRouter();
   </section>
 
   <!-- GALLERY CREAZIONI -->
-  <section class="gallery-section">
+  <section class="gallery-section my-5">
     <h3 class="section-title">{{ $t('home.gallery.title') }}</h3>
     <div class="row g-2">
       <!-- COLONNA SINISTRA -->
@@ -124,8 +123,7 @@ const router = useRouter();
 
 <style scoped lang="scss">
 // responsive header section con immagini hero
-.header {
-  margin-top: 80px;
+header {
 
   .header-mobile {
     width: 80vw;
@@ -160,15 +158,15 @@ const router = useRouter();
   }
 }
 
-h2 {
-  font-size: 1.7rem;
-  font-family: $font-family-hand;
-  text-align: center;
+// h2 {
+//   font-size: 1.7rem;
+//   font-family: $font-family-hand;
+//   text-align: center;
 
-  @media (max-width: $breakpoint-lg) {
-    font-size: 1.4rem;
-  }
-}
+//   @media (max-width: $breakpoint-lg) {
+//     font-size: 1.4rem;
+//   }
+// }
 
 .container {
   max-width: 1200px;
@@ -182,13 +180,19 @@ h2 {
   margin-bottom: 2.5rem;
 }
 
+
 //about me SECTION ----------------
 .about {
-  background: $gradient-third;
+  background: linear-gradient(25deg,
+      $color-white 20%,
+      $color-primary 60%);
   padding: 80px 0;
   border-radius: 10px;
 
   @media (max-width: $breakpoint-lg) {
+    background: linear-gradient(110deg,
+        $color-white 30%,
+        $color-primary 70%);
     padding: 50px 0;
   }
 
@@ -276,7 +280,7 @@ h2 {
 
 // GALLERY
 .gallery-section {
-  padding: 80px 0;
+  // padding: 80px 0;
 
   .row {
     width: 75%;

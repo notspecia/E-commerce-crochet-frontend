@@ -93,6 +93,7 @@ export const useCartStore = defineStore("cart", () => {
             productsSelected.value.push({ productName: product.title, documentId: product.documentId, quantity });
         }
         await syncCart();
+        toastStore.addToast("success", "Prodotto aggiunto al carrello!");
         toggleCart();
     };
 

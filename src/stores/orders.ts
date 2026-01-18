@@ -45,7 +45,6 @@ export const useOrdersStore = defineStore('orders', () => {
     // funzione per fetchare l array dei orders[] con tutti gli ordini dell'user loggato 
     const fetchOrders = async (): Promise<void> => {
         try {
-            const userId = userStore.stateUser.user?.id // setting dell'userId da usare per check del carrello e creazione
             stateOrders.isLoading = true; // Imposta isLoading a true prima di iniziare il recupero
             const response = await fetchUserOrders(userStore.stateUser.bearerToken);
             stateOrders.orders = response; // assegna gli ordini DATA recuperati alla ref 
@@ -60,12 +59,11 @@ export const useOrdersStore = defineStore('orders', () => {
     // stripe checkout session creation action
     const createStripeCheckoutSession = async (): Promise<void> => {
         try {
-            const userId = userStore.stateUser.user?.id;
             const token = userStore.stateUser.bearerToken;
 
             const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
-            if (!stripe || !userId) {
+            if (!stripe || !userStore.isLoggedIn) {
                 throw new Error('Stripe non inizializzato o utente non valido');
             }
 

@@ -1,5 +1,6 @@
 import { useUserStore } from "../stores/user";
 import type ProductSelected from "../models/ProductSelected.model";
+import type Cart from "@/models/Cart.model";
 
 
 /*
@@ -31,7 +32,7 @@ export const syncUserCart = async (path: string, token: string, items: ProductSe
 /*
  GET → Recupera il carrello associato all’utente
  */
-export const fetchUserCart = async (path: string, token: string) => {
+export const fetchUserCart = async (path: string, token: string): Promise<Cart> => {
     const response = await fetch(path,
         {
             method: "GET",

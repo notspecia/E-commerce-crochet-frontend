@@ -94,8 +94,7 @@ watchEffect(() => {
     <!-- sfondo nero dietro il menu a tendina (quando aperto menu a tendina mobile ) -->
     <div v-if="menuIsOpen || cartStore.cartIsOpen" class="overlay" @click="handleOverlayClick" />
 
-    <header class="pt-3" v-if="showNavbar">
-
+    <nav class="pt-3 mb-5 pb-md-5" v-if="showNavbar">
         <!-- 
         hamburger icon per aprire menus, renderizzata sotto un brk specifico! 1 sezione (mobile) +
         componente mobile navbar con la tendina hamburger clicckato, passato booleano come props per montare il componente con animazione
@@ -159,14 +158,14 @@ watchEffect(() => {
             </div>
         </div>
 
-    </header>
+    </nav>
 </template>
 
 
 
 <style scoped lang="scss">
 // contenitore padre navabr principale
-header {
+nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -174,7 +173,6 @@ header {
     z-index: 1;
     font-size: 1.2rem;
     padding: 0 15px;
-    margin-bottom: 60px;
 
     // hamburger icon per aprire il menu mobile
     .hamburger {
