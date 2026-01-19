@@ -32,7 +32,7 @@ onMounted(() => {
     <section class="py-5">
         <h2 class="mb-5 header">I tuoi ordini</h2>
         <!-- go to previous route -->
-        <GoBack />
+        <GoBack label="torna alla home" location="/" />
 
         <!-- caricamento ordini loader -->
         <Loader v-if="ordersStore.stateOrders.isLoading" />

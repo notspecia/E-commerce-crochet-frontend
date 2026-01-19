@@ -8,7 +8,7 @@ import type Review from "../models/Review.model";
  * @returns {Promise<Review[]>} - Lista delle recensioni associate al prodotto.
  * @throws {Error} - Se la richiesta HTTP fallisce.
  */
-export const GetReviews = async (path: string): Promise<Review[]> => {
+export const GetReviews = async (path: string) => {
 
     const response = await fetch(path, {
         method: "GET",
@@ -21,8 +21,7 @@ export const GetReviews = async (path: string): Promise<Review[]> => {
         throw new Error("Errore nel recupero delle recensioni, riprova più tardi :(");
     }
 
-    const jsonResponse = await response.json();
-    return jsonResponse.data; // Strapi restituisce sempre { data, meta }
+    return await response.json(); // {data: Review[], meta: {...} }
 };
 
 

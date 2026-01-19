@@ -158,16 +158,6 @@ header {
   }
 }
 
-// h2 {
-//   font-size: 1.7rem;
-//   font-family: $font-family-hand;
-//   text-align: center;
-
-//   @media (max-width: $breakpoint-lg) {
-//     font-size: 1.4rem;
-//   }
-// }
-
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -185,7 +175,7 @@ header {
 .about {
   background: linear-gradient(25deg,
       $color-white 20%,
-      $color-primary 60%);
+      $color-primary 50%);
   padding: 80px 0;
   border-radius: 10px;
 

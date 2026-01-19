@@ -16,6 +16,7 @@
     align-items: center;
     width: 100%;
     height: 100%;
+    padding-bottom: 10rem;
 }
 
 .loader-spinner {
