@@ -62,14 +62,12 @@ const enableInfiniteScroll = async () => {
 
 const hideAllReviews = () => {
     showAllReviews.value = false;
-
-    // Disconnetti observer
+    // disconnetti observer
     if (observer.value) {
         observer.value.disconnect();
         observer.value = null;
     }
-
-    // Reset e ricarica solo le prime 3 recensioni
+    // eset e ricarica solo le prime 3 recensioni
     reviewsStore.resetReviews();
     reviewsStore.fetchReviews(props.productId);
 };
@@ -89,87 +87,93 @@ onUnmounted(() => {
 
 
 <template>
-    <h3 class="header title-line">
-        <span>Customer Reviews</span>
-    </h3>
+    <section>
+        <h3 class="header title-line">
+            <span>Customer Reviews</span>
+        </h3>
 
-    <!-- modale creazione recensione del prodotto -->
-    <ModalReview :show="showModalReview" @close="handleReview" />
+        <!-- modale creazione recensione del prodotto -->
+        <ModalReview :show="showModalReview" @close="handleReview" />
 
-    <div class="p-3">
-        <!-- Primo LAODING del caricameno dei 3 recensioni -->
-        <Loader v-if="isInitialLoading" />
-        <!-- errore generico-->
-        <p v-else-if="reviewsStore.stateReviews.error" class="text-danger">
-            {{ reviewsStore.stateReviews.error }}
-        </p>
-        <!-- nessuna recensione -->
-        <p v-else-if="reviewsStore.stateReviews.reviews.length === 0">
-            Nessuna recensione presente
-        </p>
-        <!-- LISTA RECENSIONI -->
-        <template v-else>
-            <div class="row row-gap-4 column-gap-5">
-                <ReviewCard v-for="(review, index) in reviewsStore.stateReviews.reviews" :key="index"
-                    :review="review" />
-            </div>
-            <!-- sentinel per infinite scroll (se abilitato) aggiorna reviews e riparte il ciclo -->
-            <div v-if="showAllReviews" ref="sentinel" class="sentinel">
-                <Loader v-if="reviewsStore.stateReviews.isLoading" />
-                <p v-else-if="!hasMoreReviews" class="text-muted text-center mt-3">
-                    Tutte le recensioni caricate
-                </p>
-            </div>
-        </template>
-    </div>
+        <div class="p-3">
+            <!-- Primo LAODING del caricameno dei 3 recensioni -->
+            <Loader v-if="isInitialLoading" />
+            <!-- errore generico-->
+            <p v-else-if="reviewsStore.stateReviews.error" class="text-danger">
+                {{ reviewsStore.stateReviews.error }}
+            </p>
+            <!-- nessuna recensione -->
+            <p v-else-if="reviewsStore.stateReviews.reviews.length === 0">
+                Nessuna recensione presente
+            </p>
+            <!-- LISTA RECENSIONI -->
+            <template v-else>
+                <div class="row row-gap-4 column-gap-5">
+                    <ReviewCard v-for="(review, index) in reviewsStore.stateReviews.reviews" :key="index"
+                        :review="review" />
+                </div>
+                <!-- sentinel per infinite scroll (se abilitato) aggiorna reviews e riparte il ciclo -->
+                <div v-if="showAllReviews" ref="sentinel" class="sentinel">
+                    <Loader v-if="reviewsStore.stateReviews.isLoading" />
+                    <p v-else-if="!hasMoreReviews" class="text-muted text-center mt-3">
+                        Tutte le recensioni caricate
+                    </p>
+                </div>
+            </template>
+        </div>
 
-    <!-- BUTTONS azioni (abilitati dopo il primo caricamento delle reviews) -->
-    <div v-if="!isInitialLoading" class="actions-container">
-        <p v-if="!showAllReviews && hasMoreReviews" class="handle-review" @click="enableInfiniteScroll">
-            <span>Mostra tutte le recensioni ({{ reviewsStore.stateReviews.total }})</span>
-            <i class="bi bi-chevron-down"></i>
-        </p>
-        <p v-else-if="canHideReviews" class="handle-review" @click="hideAllReviews">
-            <span>Mostra meno recensioni </span>
-            <i class="bi bi-chevron-up"></i>
-        </p>
-        <button class="d-block btn btn-one mx-auto mb-5" @click="handleReview">
-            Scrivi recensione
-        </button>
-    </div>
+        <!-- BUTTONS azioni (abilitati dopo il primo caricamento delle reviews) -->
+        <div v-if="!isInitialLoading" class="actions-container">
+            <p v-if="!showAllReviews && hasMoreReviews" class="handle-review" @click="enableInfiniteScroll">
+                <span>Mostra tutte le recensioni ({{ reviewsStore.stateReviews.total }})</span>
+                <i class="bi bi-chevron-down"></i>
+            </p>
+            <p v-else-if="canHideReviews" class="handle-review" @click="hideAllReviews">
+                <span>Mostra meno recensioni </span>
+                <i class="bi bi-chevron-up"></i>
+            </p>
+            <button class="d-block btn btn-one mx-auto mb-5" @click="handleReview">
+                Scrivi recensione
+            </button>
+        </div>
+    </section>
 </template>
 
 
 <style lang="scss" scoped>
-h3.title-line {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+section {
+    margin-bottom: 7rem;
 
-    &::after {
-        content: "";
-        flex: 1;
-        height: 2px;
-        background: linear-gradient(to right, black 65%, rgb(117, 117, 117));
-        border-radius: 20px;
+    h3.title-line {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        &::after {
+            content: "";
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(to right, black 65%, rgb(117, 117, 117));
+            border-radius: 20px;
+        }
+
+        span {
+            white-space: nowrap;
+        }
     }
 
-    span {
-        white-space: nowrap;
-    }
-}
+    .handle-review {
+        display: inline-block;
+        font-size: 1.2rem;
+        cursor: pointer;
 
-.handle-review {
-    display: inline-block;
-    font-size: 1.2rem;
-    cursor: pointer;
+        &:hover {
+            color: $color-gray-800;
+        }
 
-    &:hover {
-        color: $color-gray-800;
-    }
-
-    span {
-        text-decoration: underline;
+        span {
+            text-decoration: underline;
+        }
     }
 }
 </style>

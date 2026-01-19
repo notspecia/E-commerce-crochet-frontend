@@ -38,7 +38,7 @@ const isLoading = ref<boolean>(false);
 
 /* REACTIVE */
 const reviewData = reactive<Review>({
-    productDocumentId: productStore.stateProduct.product?.documentId || '',
+    productDocumentId: productStore.stateProduct.product?.documentId || '', // for keep trace of the product while filtering
     titleProduct: productStore.stateProduct.product?.title || '',
     email: userStore.stateUser.user?.email,
     username: userStore.stateUser.user?.username || '',

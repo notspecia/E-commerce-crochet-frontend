@@ -56,6 +56,9 @@ onMounted(() => {
     <template v-else-if="productStore.stateProduct.product && !productStore.stateProduct.isLoading">
         <Product :product="productStore.stateProduct.product" />
         <Reviews :productId="productStore.stateProduct.product.documentId" />
+        <RelatedProducts :categoryId="productStore.stateProduct.product.category.id"
+            :excludeId="productStore.stateProduct.product.documentId" />
+
     </template>
 </template>
 
