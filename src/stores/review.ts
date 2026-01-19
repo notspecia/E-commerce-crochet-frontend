@@ -19,30 +19,56 @@ export const useReviewsStore = defineStore('reviews', () => {
     const stateReviews = reactive({
         reviews: [] as Review[],
         isLoading: false as boolean,
-        error: null as null | string
+        error: null as null | string,
+        start: 0 as number,
+        limit: 4 as number,
+        total: 0 as number
     });
 
 
     /* ------------ACTIONS------------- */
     // function to fetch reviews by productDocumentId of a product
     const fetchReviews = async (productId: string): Promise<void> => {
+        console.log("le mie review prima del fetch", stateReviews.reviews);
+
+        if (stateReviews.isLoading) return
+
         try {
             stateReviews.isLoading = true;
+
             // costruzione query string per filtrare le recensioni per productDocumentId
             const queryString = qs.stringify({
                 filters: {
                     productDocumentId: { $eq: productId },
                     approved: { $eq: true }
-                }
+                },
+                pagination: {
+                    start: stateReviews.start,
+                    limit: stateReviews.limit
+                },
+                sort: ['createdAt:desc']
             });
+
             const response = await GetReviews(`${API_BASE_URL}/api/reviews?${queryString}`);
-            stateReviews.reviews = response;
+            const { data, meta } = response; // estraggo data e meta dalla risposta
+
+            stateReviews.reviews.push(...data); // ACCUMULA solo per paginazione
+            console.log("le mie review DOPO del fetch", stateReviews.reviews);
+            stateReviews.total = meta.pagination.total;
+            stateReviews.start += stateReviews.limit;
+
         } catch (error: any) {
             stateReviews.error = `${error}`;
         } finally {
             stateReviews.isLoading = false;
         };
     }
+
+    const resetReviews = () => {
+        stateReviews.reviews = [];
+        stateReviews.start = 0;
+        stateReviews.total = 0;
+    };
 
     // function for create review authenticated
     const createReview = async (review: Review): Promise<Review> => {
@@ -60,6 +86,7 @@ export const useReviewsStore = defineStore('reviews', () => {
     return {
         stateReviews,
         fetchReviews,
+        resetReviews,
         createReview
     };
 });

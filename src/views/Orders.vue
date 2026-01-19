@@ -32,22 +32,22 @@ onMounted(() => {
     <section class="py-5">
         <h2 class="mb-5 header">I tuoi ordini</h2>
         <!-- go to previous route -->
-        <GoBack />
+        <GoBack label="torna alla home" location="/" />
 
         <!-- caricamento ordini loader -->
         <Loader v-if="ordersStore.stateOrders.isLoading" />
         <!-- gestione errori di fetch caricamento -->
         <p v-else-if="ordersStore.stateOrders.error" class="text-danger">{{ ordersStore.stateOrders.error }}</p>
+        <!-- card preview degli ordini -->
+        <div v-else-if="ordersStore.stateOrders.orders.length > 0" class="row">
+            <OrderCard v-for="(order, index) in ordersStore.stateOrders.orders" :key="index" :order="order" />
+        </div>
         <!-- se non presenti ordini nell'account dell'utente -->
-        <div v-else-if="ordersStore.stateOrders.orders.length === 0" class="text-center mt-5 pt-5">
+        <div v-else class="text-center mt-5 pt-5">
             <p class="fs-4 mb-4">Non hai effetuato ordini!</p>
             <button class="btn btn-one text-white" @click="() => { router.push(`/products`); }">
                 Vai ai prodotti
             </button>
-        </div>
-        <!-- card preview degli ordini -->
-        <div v-else class="row">
-            <OrderCard v-for="(order, index) in ordersStore.stateOrders.orders" :key="index" :order="order" />
         </div>
     </section>
 </template>

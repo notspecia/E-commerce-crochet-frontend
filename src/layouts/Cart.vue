@@ -181,7 +181,7 @@ const goDetailProduct = (slug: string): void => {
             cursor: pointer;
 
             &:hover {
-                animation: shake 0.4s ease-in-out;
+                transform: scale(1.2);
             }
         }
     }

@@ -62,6 +62,7 @@ const confirmLogout = (): void => {
     userStore.logoutUser();
     showModalLogout.value = false;
 }
+
 const closeModal = (): void => {
     showModalLogout.value = false;
 }
@@ -93,8 +94,7 @@ watchEffect(() => {
     <!-- sfondo nero dietro il menu a tendina (quando aperto menu a tendina mobile ) -->
     <div v-if="menuIsOpen || cartStore.cartIsOpen" class="overlay" @click="handleOverlayClick" />
 
-    <header class="pt-3" v-if="showNavbar">
-
+    <nav class="pt-3 mb-5 pb-md-5" v-if="showNavbar">
         <!-- 
         hamburger icon per aprire menus, renderizzata sotto un brk specifico! 1 sezione (mobile) +
         componente mobile navbar con la tendina hamburger clicckato, passato booleano come props per montare il componente con animazione
@@ -104,6 +104,9 @@ watchEffect(() => {
             <MobileNavbar v-if="menuIsOpen" @close="toggleMenu" @setLanguage="setLanguage"
                 :selectedLang="selectedLang" />
         </transition>
+
+        <!-- Modale di conferma per logout passati slot tempaltes della modale -->
+        <ModalConfirm :show="showModalLogout" @close="closeModal" @logout="confirmLogout" />
 
         <!-- immagine logo con click render alla HOME "/" + linka voci del sito 2 sezione -->
         <nav class="nav-left">
@@ -147,19 +150,6 @@ watchEffect(() => {
                 <!-- Utente loggato -->
                 <DropdownUser v-else @handleUser="handleUser" />
             </div>
-            <!-- Modale di conferma per logout passati slot tempaltes della modale -->
-            <ModalConfirm :show="showModalLogout" @close="closeModal">
-                <template #header>
-                    <h5 class="modal-title">Vuoi davvero uscire?</h5>
-                </template>
-                <template #default>
-                    <p>Sei sicuro di voler disconnetterti dal tuo account?</p>
-                </template>
-                <template #footer>
-                    <button type="button" class="btn btn-secondary opacity-50" @click="closeModal">Chiudi</button>
-                    <button type="button" class="btn btn-custom-primary" @click="confirmLogout">Conferma</button>
-                </template>
-            </ModalConfirm>
             <!-- toggle icon per aprire carrello dal padre navbar + 
             componente cart con i prodotti dell'utente con animazione slide -->
             <div class="position-relative" @click="cartStore.toggleCart">
@@ -168,14 +158,14 @@ watchEffect(() => {
             </div>
         </div>
 
-    </header>
+    </nav>
 </template>
 
 
 
 <style scoped lang="scss">
 // contenitore padre navabr principale
-header {
+nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -183,7 +173,6 @@ header {
     z-index: 1;
     font-size: 1.2rem;
     padding: 0 15px;
-    margin-bottom: 60px;
 
     // hamburger icon per aprire il menu mobile
     .hamburger {
@@ -249,17 +238,6 @@ header {
         &:hover {
             color: $color-gray-900;
             transform: scale(1.1);
-        }
-    }
-
-    .btn-custom-primary {
-        background-color: $color-primary-500;
-        color: $color-white;
-        border: none;
-
-        &:hover {
-            color: $color-white;
-            background-color: $color-primary-600;
         }
     }
 

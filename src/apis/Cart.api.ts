@@ -1,7 +1,8 @@
 import { useUserStore } from "../stores/user";
 import type ProductSelected from "../models/ProductSelected.model";
+import type Cart from "@/models/Cart.model";
 
-// TODO REVIEW WHIT NEW BUILD ARK RELATIONS AND DONT USE ANYMORE USERID
+
 /*
  Sincronizza il carrello dell'utente con il server.
  funzione per sincronizzare il carrello locale con il carrello remoto nel DB quando effettuate modifiche all array productsSelected
@@ -9,7 +10,7 @@ import type ProductSelected from "../models/ProductSelected.model";
 export const syncUserCart = async (path: string, token: string, items: ProductSelected[]) => {
 
     const userStore = useUserStore();
-    if (!userStore.isLoggedIn) return; // Se l'utente non è loggato, esci dalla funzione
+    if (!userStore.isLoggedIn) return; // se l'utente non è loggato, esci dalla funzione
 
     const response = await fetch(path,
         {
@@ -31,7 +32,7 @@ export const syncUserCart = async (path: string, token: string, items: ProductSe
 /*
  GET → Recupera il carrello associato all’utente
  */
-export const fetchUserCart = async (path: string, token: string) => {
+export const fetchUserCart = async (path: string, token: string): Promise<Cart> => {
     const response = await fetch(path,
         {
             method: "GET",
@@ -56,7 +57,7 @@ export const fetchUserCart = async (path: string, token: string) => {
 /*
  POST → Crea nuovo carrello vuoto per l’utente
  */
-export const createUserCart = async (path: string, userId: number, token: string,) => {
+export const createUserCart = async (path: string, token: string,) => {
 
     const response = await fetch(path, {
         method: "POST",
@@ -66,7 +67,6 @@ export const createUserCart = async (path: string, userId: number, token: string
         },
         body: JSON.stringify({
             data: {
-                userId,
                 items: [],
             },
         }),

@@ -30,16 +30,20 @@ const handleReading = (): void => {
 
 
 <template>
-    <div class="review-item mb-4">
+    <div class="review-item col-12 col-lg-5">
         <p class="review-user mb-1">
-            <i class="bi bi-person"></i>
-            {{ review.username }} –
-            <img v-for="n in review.rating" :key="`star-${review.id}-${n}`" src="@/assets/images/star-rate.png" />
+            <img src="@/assets/images/user.png">
+            {{ review.username }}
         </p>
+        <div class="star-rating">
+            <i v-for="n in 5" :key="`star-${review.id}-${n}`" class="bi"
+                :class="n <= review.rating ? 'bi-star-fill' : 'bi-star'"></i>
+        </div>
         <p class="review-content mb-3">{{ reactiveReview }}</p>
         <template v-if="props.review.comment.length > 150">
-            <button v-if="!showFullReview" class="read-more" @click="handleReading()">Leggi tutta la recensione</button>
-            <button v-else class="read-less" @click="handleReading()">Leggi meno</button>
+            <button :class="showFullReview ? 'read-less' : 'read-more'" @click="handleReading()">
+                {{ showFullReview ? 'Leggi meno' : 'Leggi tutta la recensione' }}
+            </button>
         </template>
         <p class="review-date mb-0">
             {{ new Intl.DateTimeFormat('it-IT').format(new Date(review.publishedAt)) }}
@@ -51,31 +55,32 @@ const handleReading = (): void => {
 <style lang="scss" scoped>
 // card item recensione singola
 .review-item {
-    width: 50%;
     background-color: $color-white;
     padding: 1rem 1.2rem;
     border-radius: 5px;
-
-    @media (max-width: $breakpoint-lg) {
-        width: 100%
-    }
+    height: fit-content;
 
     .review-user {
         display: flex;
         align-items: center;
-        gap: 0.3rem;
-        font-weight: 600;
-        color: $color-gray-900;
-
-        i {
-            font-size: 1.5rem;
-        }
+        gap: 0.5rem;
+        font-weight: $font-weight-bold;
 
         img {
-            width: 18px;
-            height: 18px;
+            width: 35px;
         }
     }
+
+    .star-rating {
+        gap: 0.3rem;
+        display: flex;
+
+
+        i.bi-star-fill {
+            color: $color-primary-600;
+        }
+    }
+
 
     .review-content {
         margin: 0.4rem 0;

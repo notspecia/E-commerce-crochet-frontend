@@ -1,12 +1,16 @@
 <script setup lang="ts">
+const props = defineProps<{
+    label: string,
+    location: string
+}>();
 </script>
 
 
 <template>
     <!-- BOTTONE per tornare indietro alla pagina prodotti -->
-    <div class="btn-back mb-5" @click="$router.back()">
+    <div class="btn-back mb-5" @click="$router.push(location)">
         <i class="bi bi-chevron-left me-2"></i>
-        <span>{{ $t('global.goBack') }}</span>
+        <span>{{ label }}</span>
     </div>
 </template>
 

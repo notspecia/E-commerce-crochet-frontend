@@ -33,9 +33,8 @@ export const useCartStore = defineStore("cart", () => {
     const productsSelected = ref<ProductSelected[]>([]); // stato array di prodotti nel carrello (solo documentId prodtto e la quantità) REMOTE
     const cartId = ref<string | null>(null); // stato per salvare il cartId del carrello remoto (documentId del carrello nel DB)
 
-
     /* -- COMPUTED -- */
-    // computed per trasformare i prodotti selezionati in un array di prodotti completi da renderizzare nel cart COMPONENTE + con quantità 
+    // computed per trasformare i prodotti selezionati in un array di prodotti completi da renderizzare nel CART COMPONENTE + con quantità 
     const productsCart = computed<ProductCart[]>(() => {
         return productsSelected.value
             .map((cartItem) => {
@@ -63,7 +62,6 @@ export const useCartStore = defineStore("cart", () => {
     // funzione per gestire la visibilità della sidebar del carrello
     const toggleCart = (): void => {
         goTopPage();
-        loadCart(); // carico il carrello ad ogni apertura (evitare incoerenze dati)
         cartIsOpen.value = !cartIsOpen.value;
     };
 
@@ -75,7 +73,6 @@ export const useCartStore = defineStore("cart", () => {
             userStore.stateUser.bearerToken,
             productsSelected.value
         );
-        console.log(productsSelected.value);
     };
 
 
@@ -83,7 +80,7 @@ export const useCartStore = defineStore("cart", () => {
     const addToCart = async (product: Product, quantity: number = 1) => {
         if (!userStore.isLoggedIn) {
             router.push('/register'); // se non loggato reindirizzo alla pagina di registrazione
-            toastStore.addToast("light", "Devi essere registrato per poter effettuare un ordine!");
+            toastStore.addToast("danger", "Devi essere registrato per poter effettuare un ordine!");
             return;
         }
         const existing = productsSelected.value.find(
@@ -96,6 +93,7 @@ export const useCartStore = defineStore("cart", () => {
             productsSelected.value.push({ productName: product.title, documentId: product.documentId, quantity });
         }
         await syncCart();
+        toastStore.addToast("success", "Prodotto aggiunto al carrello!");
         toggleCart();
     };
 
@@ -123,7 +121,6 @@ export const useCartStore = defineStore("cart", () => {
     // funzione per svuotare lo store pinia del carrello (dal logout) e richiama il syncCart
     const clearCart = async () => {
         productsSelected.value = [];
-        await syncCart();
     };
 
 
@@ -132,23 +129,21 @@ export const useCartStore = defineStore("cart", () => {
         if (!userStore.isLoggedIn) return; // Se l'utente non è loggato, esci dalla funzione
 
         try {
-            const userId = userStore.stateUser.user?.id // setting dell'userId da usare per check del carrello e creazione
             const data = await fetchUserCart(
-                `${API_BASE_URL}/api/carts?filters[userId][$eq]=${userId}`,
+                `${API_BASE_URL}/api/carts`,
                 userStore.stateUser.bearerToken
             );
 
             // se il carrello esiste già → lo carico || altrimenti creo un nuovo carrello vuoto
             if (data.length > 0) {
                 const cart = data[0];
-                cartId.value = cart.documentId;
+                cartId.value = cart.documentId; // documentId del carrello esistente per fare other operazioni di sync/update
                 productsSelected.value = cart.items || [];
                 console.log("Carrello caricato dal server:", cart.items);
             } else {
                 // creazione carrello
-                if (!userId) return;
-                const response = await createUserCart(`${API_BASE_URL}/api/carts`, userId, userStore.stateUser.bearerToken);
-                cartId.value = response.documentId;
+                const response = await createUserCart(`${API_BASE_URL}/api/carts`, userStore.stateUser.bearerToken);
+                cartId.value = response.documentId; // documentId del carrello creato per fare other operazioni di sync/update
                 productsSelected.value = [];
             }
         } catch (err) {

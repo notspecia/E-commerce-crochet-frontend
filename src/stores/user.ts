@@ -74,7 +74,6 @@ export const useUserStore = defineStore("user", () => {
         stateUser.user = null;
         // svuota anche il carrello subito
         cartStore.clearCart();
-        cartStore.cartIsOpen = false;
         // redirect to login page
         toastStore.addToast("light", "Disconnesione dall'account effetuata con successo!");
         router.push("/login");

@@ -10,9 +10,9 @@ import FormContactsMessage from '@/components/FormContactsMessage.vue';
             Per richiedere <span>prodotti personalizzati</span> & <span>informazioni:</span>
         </h2>
         <!-- for of constant socials link and icon url -->
-        <div class="social-row" role="navigation" aria-label="link social">
-            <a v-for="p in platforms" :key="p.id" :href="p.url" class="social-link" :aria-label="p.name" target="_blank"
-                rel="noopener noreferrer">
+        <div class="social-row row g-5" role="navigation" aria-label="link social">
+            <a v-for="p in platforms" :key="p.id" :href="p.url" class="social-link col-6 col-sm-3 text-center"
+                :aria-label="p.name" target="_blank" rel="noopener noreferrer">
                 <i :class="['bi', p.icon]" aria-hidden="true"></i>
             </a>
         </div>
@@ -23,16 +23,18 @@ import FormContactsMessage from '@/components/FormContactsMessage.vue';
 
 
 <style scoped lang="scss">
-h2 span {
-    color: $color-primary-600;
-    text-decoration: underline;
+h2.header {
+    font-size: 2.5rem;
+
+    span {
+        color: $color-primary-600;
+        text-decoration: underline;
+    }
 }
 
+
 .social-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    margin: 10vh 0 20vh;
+    margin: 4vh 0 20vh;
 
     // icons style
     .social-link {
@@ -47,10 +49,7 @@ h2 span {
 
     // layout mobile: in colonna
     @media (max-width: $breakpoint-md) {
-        flex-direction: column;
-        gap: 1.5rem;
-        align-items: center;
-        margin-top: 5rem;
+        margin-top: 3rem;
     }
 }
 </style>

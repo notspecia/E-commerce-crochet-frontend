@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref, computed, watch } from 'vue'
+import { reactive, ref, computed, watch, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router';
 import { useReviewsStore } from '@/stores/review';
 import { useProductStore } from '@/stores/product';
@@ -38,7 +38,7 @@ const isLoading = ref<boolean>(false);
 
 /* REACTIVE */
 const reviewData = reactive<Review>({
-    productDocumentId: productStore.stateProduct.product?.documentId || '',
+    productDocumentId: productStore.stateProduct.product?.documentId || '', // for keep trace of the product while filtering
     titleProduct: productStore.stateProduct.product?.title || '',
     email: userStore.stateUser.user?.email,
     username: userStore.stateUser.user?.username || '',
@@ -66,6 +66,8 @@ const getVoiceMessage = computed((): string => {
 /* FUNCTIONS */
 // funzione per emettere gli eventi di chiusura tramite X LABEL
 const onClose = (): void => {
+    reviewData.rating = 0;
+    reviewData.comment = '';
     emit('close');
 }
 
@@ -141,7 +143,7 @@ watch(() => props.show, (isOpen) => {
                         </button>
                         <button type="submit" class="btn btn-submit" :disabled="isLoading">
                             <span v-if="isLoading" class="spinner-border spinner-border-sm me-2" />
-                            {{ isLoading ? 'Processing...' : 'Send review' }}
+                            {{ isLoading ? 'Processing...' : 'Send review' }} <i class="bi bi-send ms-1"></i>
                         </button>
                     </div>
                 </div>

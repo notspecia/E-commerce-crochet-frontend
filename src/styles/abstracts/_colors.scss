@@ -37,11 +37,11 @@ $bg-sidebar: $color-gray-200;
 // gradients
 // gradients using sass:color to replace lighten()
 $gradient-primary: linear-gradient(135deg,
-        $color-primary-100 0%,
-        $color-primary-400 50%,
-        $color-primary-700 100%);
+                $color-primary-100 0%,
+                $color-primary-400 50%,
+                $color-primary-700 100%);
 
 $gradient-secondary: linear-gradient(135deg,
-        $color-primary-300 0%,
-        $color-primary-600 60%,
-        $color-primary-900 100%);
+                $color-primary-300 0%,
+                $color-primary-600 60%,
+                $color-primary-900 100%);

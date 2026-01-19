@@ -1,6 +1,7 @@
 import type Login from "../models/Login.model";
 import type Register from "../models/Register.model";
 
+
 /**
  * Autenticazione utente (login o registrazione) funzione usata comunamente.
  * @param path Endpoint completo (login o register)

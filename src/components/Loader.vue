@@ -16,11 +16,12 @@
     align-items: center;
     width: 100%;
     height: 100%;
+    padding-bottom: 10rem;
 }
 
 .loader-spinner {
     width: 3rem;
     height: 3rem;
-    color: $color-primary-500;
+    color: $color-primary-800;
 }
 </style>

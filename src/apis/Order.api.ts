@@ -1,5 +1,34 @@
 import type ProductSelected from "../models/ProductSelected.model";
 import type Order from "../models/Order.model";
+import { API_BASE_URL } from "@/utils/costants";
+
+
+/**
+ * Recupera gli ordini associati a un determinato utente autenticato.
+ *
+ * @param {number} userId - ID dell’utente autenticato.
+ * @param {string} token - JWT dell’utente per l’autenticazione.
+ * @returns {Promise<Order[]>} - Lista degli ordini dell’utente.
+ * @throws {Error} - Se la richiesta HTTP fallisce.
+ */
+export const fetchUserOrders = async (token: string): Promise<Order[]> => {
+    const response = await fetch(`${API_BASE_URL}/api/orders`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error(`Errore nella richiesta: ${response.status}`);
+    }
+
+    // restituisce i dati in formato risposta JSON dalla chiamata HTTP GET
+    const jsonResponse = await response.json(); // JSON FORMATO DA : data + meta
+    return jsonResponse.data;
+};
+
 
 /**
  * Crea una sessione di pagamento Stripe e salva l'ordine nel backend Strapi.
@@ -10,8 +39,8 @@ import type Order from "../models/Order.model";
  * @returns {Promise<string>} - ID della sessione Stripe.
  * @throws {Error} - Se la richiesta HTTP fallisce o la sessione non viene creata.
  */
-export const CreateStripeSession = async (path: string, products: ProductSelected[], userId: number, token: string): Promise<string> => {
-    const response = await fetch(path, {
+export const CreateStripeSession = async (products: ProductSelected[], token: string): Promise<string> => {
+    const response = await fetch(`${API_BASE_URL}/api/orders`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -20,10 +49,7 @@ export const CreateStripeSession = async (path: string, products: ProductSelecte
         credentials: "include",
         body: JSON.stringify({
             // dati da inviare al backend per la creazione della sessione stripe presi dal backend come CTX.REQUEST.BODY.DATA
-            data: {
-                userId,
-                products
-            }
+            data: { products }
         }),
     });
 
@@ -39,31 +65,4 @@ export const CreateStripeSession = async (path: string, products: ProductSelecte
     }
 
     return sessionId; // return the sessionId for the frontend to redirect to checkout
-};
-
-
-/**
- * Recupera gli ordini associati a un determinato utente autenticato.
- *
- * @param {number} userId - ID dell’utente autenticato.
- * @param {string} token - JWT dell’utente per l’autenticazione.
- * @returns {Promise<Order[]>} - Lista degli ordini dell’utente.
- * @throws {Error} - Se la richiesta HTTP fallisce.
- */
-export const fetchUserOrders = async (path: string, token: string): Promise<Order[]> => {
-    const response = await fetch(path, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-    });
-
-    if (!response.ok) {
-        throw new Error(`Errore nella richiesta: ${response.status}`);
-    }
-
-    // restituisce i dati in formato risposta JSON dalla chiamata HTTP GET
-    const jsonResponse = await response.json(); // JSON FORMATO DA : data + meta
-    return jsonResponse.data;
 };
