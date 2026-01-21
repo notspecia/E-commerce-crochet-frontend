@@ -4,6 +4,7 @@ import { useReviewsStore } from '@/stores/review';
 import Loader from './Loader.vue';
 import ModalReview from './ModalReview.vue';
 import ReviewCard from './ReviewCard.vue';
+import { goTopPage } from '@/utils/utils';
 
 
 /* PROPS */
@@ -22,15 +23,16 @@ const showAllReviews = ref<boolean>(false);
 const observer = ref<IntersectionObserver | null>(null);
 const sentinel = ref<HTMLElement | null>(null);
 
+
 /* COMPUTED */
+// controlla se siamo in loading iniziale (prima iterazione)
+const isInitialLoading = computed(() => {
+    return reviewsStore.stateReviews.isLoading && reviewsStore.stateReviews.reviews.length === 0;
+});
 // controllo se ci sono altre recensioni da fetachre o le abbiamo tutte
 const hasMoreReviews = computed(() => {
     return reviewsStore.stateReviews.total > reviewsStore.stateReviews.limit &&
         reviewsStore.stateReviews.reviews.length < reviewsStore.stateReviews.total;
-});
-// controlla se siamo in loading iniziale (prima iterazione)
-const isInitialLoading = computed(() => {
-    return reviewsStore.stateReviews.isLoading && reviewsStore.stateReviews.reviews.length === 0;
 });
 // mostra il bottone "nascondi" solo se ci sono più di 3 recensioni caricate
 const canHideReviews = computed(() => {
@@ -45,6 +47,7 @@ const handleReview = (): void => {
 
 // funzione attivita e messa in funzione dopo che accettiamo di vedere tutte le recensioni, attivato observer per fetchare 3 recensioni alla volta!
 const enableInfiniteScroll = async () => {
+    goTopPage(1000)
     showAllReviews.value = true;
     await nextTick(); // wait DOM update
 
@@ -124,15 +127,15 @@ onUnmounted(() => {
 
         <!-- BUTTONS azioni (abilitati dopo il primo caricamento delle reviews) -->
         <div v-if="!isInitialLoading" class="actions-container">
-            <p v-if="!showAllReviews && hasMoreReviews" class="handle-review" @click="enableInfiniteScroll">
+            <a v-if="!showAllReviews && hasMoreReviews" class="handle-review" @click="enableInfiniteScroll">
                 <span>Mostra tutte le recensioni ({{ reviewsStore.stateReviews.total }})</span>
                 <i class="bi bi-chevron-down"></i>
-            </p>
-            <p v-else-if="canHideReviews" class="handle-review" @click="hideAllReviews">
+            </a>
+            <a v-else-if="canHideReviews" class="handle-review" @click="hideAllReviews">
                 <span>Mostra meno recensioni </span>
                 <i class="bi bi-chevron-up"></i>
-            </p>
-            <button class="d-block btn btn-one mx-auto mb-5" @click="handleReview">
+            </a>
+            <button class="d-block btn btn-one mx-auto mt-5" @click="handleReview">
                 Scrivi recensione
             </button>
         </div>
@@ -144,27 +147,10 @@ onUnmounted(() => {
 section {
     margin-bottom: 7rem;
 
-    h3.title-line {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-
-        &::after {
-            content: "";
-            flex: 1;
-            height: 2px;
-            background: linear-gradient(to right, black 65%, rgb(117, 117, 117));
-            border-radius: 20px;
-        }
-
-        span {
-            white-space: nowrap;
-        }
-    }
-
     .handle-review {
         display: inline-block;
         font-size: 1.2rem;
+        color: $color-black;
         cursor: pointer;
 
         &:hover {

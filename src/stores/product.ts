@@ -1,10 +1,9 @@
 import { defineStore } from "pinia";
-import { reactive, watch } from "vue";
+import { computed, reactive, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { API_BASE_URL } from "@/utils/costants";
 import { GetProduct } from "@/apis/Products.api";
 import type Product from "@/models/Product.model";
-
 
 
 export const useProductStore = defineStore('product', () => {
@@ -21,13 +20,12 @@ export const useProductStore = defineStore('product', () => {
         error: null as string | null
     });
 
-
     /* ------------ACTIONS------------- */
     // function for fetch single product (api consumed in the product detail)
-    const fetchProduct = async (slug: string) => {
+    const fetchProduct = async (documentId: string) => {
         try {
             stateProduct.isLoading = true;
-            const response = await GetProduct(`${API_BASE_URL}/api/products/${slug}?locale=${locale.value}`);
+            const response = await GetProduct(`${API_BASE_URL}/api/products/${documentId}?populate=*&locale=${locale.value}`);
             stateProduct.product = response;
         } catch (err: any) {
             stateProduct.error = err.message;
@@ -42,7 +40,7 @@ export const useProductStore = defineStore('product', () => {
     watch(locale, () => {
         stateProduct.error = null; // reset error
         if (stateProduct.product) {
-            fetchProduct(stateProduct.product.slug);
+            fetchProduct(stateProduct.product.documentId);
         }
     });
 

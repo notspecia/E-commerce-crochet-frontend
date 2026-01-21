@@ -1,3 +1,6 @@
+import type Category from "./Category.model"
+
+
 export default interface Product {
     id: number,
     documentId: string,
@@ -20,5 +23,6 @@ export default interface Product {
             thumbnail: {
             }
         },
-    }[]
+    }[],
+    category: Category
 }

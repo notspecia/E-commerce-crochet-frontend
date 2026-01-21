@@ -55,10 +55,16 @@ const handleReading = (): void => {
 <style lang="scss" scoped>
 // card item recensione singola
 .review-item {
-    background-color: $color-white;
+    background-image: url(@/assets/images/foglio.png);
+    background-color: rgba(255, 255, 255, 0.7);
+    background-blend-mode: lighten;
+    background-position: right;
+    background-size: cover;
+    background-repeat: no-repeat;
     padding: 1rem 1.2rem;
     border-radius: 5px;
     height: fit-content;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 
     .review-user {
         display: flex;

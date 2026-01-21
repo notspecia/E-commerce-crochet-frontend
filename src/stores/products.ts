@@ -1,17 +1,11 @@
 import { defineStore } from 'pinia';
-import { useI18n } from 'vue-i18n';
-import { reactive, watch } from 'vue';
+import { reactive } from 'vue';
 import { API_BASE_URL } from '@/utils/costants';
 import { GetProducts } from '@/apis/Products.api';
 import type Product from '@/models/Product.model';
 
 
-
 export const useProductsStore = defineStore('products', () => {
-
-  /* I18N LANG */
-  const { locale } = useI18n(); // rendiamolo reattivo per il cambio lingua cambiando la lingua dei prodotti in tutta l'applicazione
-
 
   /* --------------STATE---------------- */
   // state reactive of the object whit array of products + bool loading and string error
@@ -27,7 +21,7 @@ export const useProductsStore = defineStore('products', () => {
   const fetchProducts = async (): Promise<void> => {
     try {
       stateProducts.isLoading = true; // Imposta isLoading a true prima di iniziare il recupero
-      const response = await GetProducts(`${API_BASE_URL}/api/products?locale=${locale.value}`);
+      const response = await GetProducts(`${API_BASE_URL}/api/products`);
       stateProducts.products = response; // assegna i prodotti DATA recuperati alla ref 
     } catch (error) {
       stateProducts.error = `${error}`;
@@ -35,15 +29,6 @@ export const useProductsStore = defineStore('products', () => {
       stateProducts.isLoading = false;
     };
   }
-
-
-  /* WATCH */
-  // Watch per il cambio della lingua, ricarica i prodotti quando cambia la lingua su tutta l'applicazione
-  watch(locale, () => {
-    stateProducts.error = null; // reset error
-    fetchProducts();
-  });
-
 
   return {
     stateProducts,

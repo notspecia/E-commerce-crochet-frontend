@@ -9,3 +9,21 @@ h3.header {
     font-size: 2.5rem;
     font-family: $font-family-hand;
 }
+
+h3.title-line {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    &::after {
+        content: "";
+        flex: 1;
+        height: 2px;
+        background: linear-gradient(to right, black 65%, rgb(117, 117, 117));
+        border-radius: 20px;
+    }
+
+    span {
+        white-space: nowrap;
+    }
+}

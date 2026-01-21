@@ -19,7 +19,7 @@ const cartStore = useCartStore();
 /* FUNCTION */
 // used on image and title click to go to product details page
 const goProductDetails = () => {
-    router.push(`/products/${props.product.slug}`);
+    router.push(`/products/${props.product.documentId}`);
 }
 // funzione handle per aggiungere il prodotto al carrello tramite il metodo addProduct del cartStore di pinia
 const handleAddToCart = async () => {
