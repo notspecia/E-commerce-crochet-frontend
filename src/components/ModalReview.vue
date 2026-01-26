@@ -32,7 +32,6 @@ const productStore = useProductStore();
 const userStore = useUserStore();
 const toastStore = useToastStore();
 
-
 /* REF */
 const isLoading = ref<boolean>(false);
 
@@ -114,13 +113,12 @@ watch(() => props.show, (isOpen) => {
                             <button type="button" class="btn-close" @click="onClose" />
                         </div>
                         <div class="modal-body">
-                            <p class="text-center mb-5"> Let us know what you like and where we can get better. Rate us
+                            <p class="mb-5"> Let us know what you like and where we can get better. Rate us
                                 and
                                 type responses below. Your opinion is important for us!</p>
-                            <div class="divisor w-50" />
                             <!-- rating -->
-                            <div class="mb-3 d-flex flex-column align-items-center">
-                                <p class="rating text-center">Rate your experience</p>
+                            <div class="d-flex flex-column align-items-center">
+                                <p class="rating text-center">Rate your experience!</p>
                                 <div class="star-rating">
                                     <span v-for="star in 5" :key="star" class="star"
                                         :class="{ active: star <= reviewData.rating }"
@@ -129,9 +127,8 @@ watch(() => props.show, (isOpen) => {
                                     </span>
                                 </div>
                             </div>
-                            <div class="divisor w-75" />
                             <!-- comment -->
-                            <div class="mt-5 mb-2">
+                            <div class="mt-4 mb-2">
                                 <label class="form-label" v-html="getVoiceMessage"></label>
                                 <textarea v-model="reviewData.comment" class="form-control" rows="4" />
                             </div>
@@ -170,21 +167,14 @@ watch(() => props.show, (isOpen) => {
         width: 92vw
     }
 
-    .divisor {
-        display: block;
-        margin: 10px auto;
-        height: 1px;
-        background-color: black;
-        border-radius: 120px;
-    }
-
     .modal-title {
         font-family: $font-family-hand;
         font-size: 2.7rem;
     }
 
     .rating {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
+        font-family: $font-family-hand;
         font-weight: $font-weight-bold;
         text-align: center;
     }
@@ -193,7 +183,7 @@ watch(() => props.show, (isOpen) => {
         display: flex;
         flex-direction: row;
         gap: 35px;
-        font-size: 1.85rem;
+        font-size: 1.95rem;
     }
 
     .star {
@@ -208,6 +198,7 @@ watch(() => props.show, (isOpen) => {
     .modal-footer {
         justify-content: space-between;
         padding: 0;
+        margin: 0;
 
         .btn {
             width: 50%;
@@ -227,7 +218,12 @@ watch(() => props.show, (isOpen) => {
         }
 
         .btn-secondary {
+            background-color: rgb(49, 49, 49);
             border-bottom-left-radius: 5px;
+
+            &:hover {
+                background-color: gray;
+            }
         }
     }
 }

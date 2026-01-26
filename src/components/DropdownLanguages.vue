@@ -14,7 +14,7 @@ const setLanguage = (lang: string): void => {
 
 
 <template>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu mt-3">
         <li v-for="lang in languages" :key="lang.code" class="dropdown-item" @click="setLanguage(lang.code)">
             <img :src="lang.flag" :alt="lang.label" class="flag" />
             {{ lang.label }}

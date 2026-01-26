@@ -57,14 +57,14 @@ const goDetailProduct = (documentId: string): void => {
                     <p>PRODUCT</p>
                     <p>PRICE</p>
                 </div>
-                <div v-for="product in cartStore.productsCart" :key="product.id" class="cart-product">
+                <div v-for="product in cartStore.productsCart" :key="product.id" class="cart-product mb-5">
                     <!-- immagine di copertina principale -->
                     <img :src="`${API_BASE_URL}${product.images[0].url}`" :alt="`${product.images[0].alternativeText}`"
                         class="cart-product-img me-3" @click="goDetailProduct(product.documentId)" />
                     <!--info -->
                     <div class="flex-grow-1">
-                        <h5 class="mb-1">{{ product.title }}</h5>
-                        <p class="mb-1 price-block">{{ product.price.toFixed(2) }} €</p>
+                        <p class="mb-1 title-block">{{ product.title }}</p>
+                        <p class="mb-3 price-block">{{ product.price.toFixed(2) }} €</p>
                         <!-- quantità -->
                         <div class="d-flex align-items-center gap-2">
                             <button class="btn btn-sm quantity-button" :class="product.quantity <= 1 ? 'disabled' : ''"
@@ -111,19 +111,11 @@ const goDetailProduct = (documentId: string): void => {
     background: $bg-sidebar;
     color: $color-gray-900;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    padding: 30px 20px;
+    padding: 20px 10px 20px 20px;
     z-index: 3;
 
     h2 {
         font-family: $font-family-hand;
-    }
-
-    .total-label {
-        font-weight: $font-weight-bold;
-    }
-
-    .price-block {
-        font-family: $font-family-base;
     }
 
     // 65% width per brk <= 768 (tablet)
@@ -135,53 +127,70 @@ const goDetailProduct = (documentId: string): void => {
     @media (max-width: $breakpoint-sm) {
         width: 90%;
     }
-}
 
-/* lista prodotti nel carrello scrollabile */
-.cart-products-list {
-    flex: 1;
-    height: 100%;
-    overflow-y: auto;
-    padding-right: 15px;
 
-    /* ogni riga prodotto */
-    .cart-product {
-        display: flex;
-        align-items: center;
-        margin: 30px 0;
+    /* lista prodotti nel carrello scrollabile */
+    .cart-products-list {
+        flex: 1;
+        overflow-y: auto;
+        padding-right: 15px;
 
-        /* thumbnail immagine prodotto */
-        .cart-product-img {
-            width: 120px;
-            height: 140px;
-            object-fit: cover;
-            border-radius: 8px;
-            cursor: pointer;
+        /* ogni riga prodotto */
+        .cart-product {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
 
-            @media (max-width: $breakpoint-sm) {
-                width: 100px;
-                height: 120px;
+            /* thumbnail immagine prodotto */
+            .cart-product-img {
+                width: 130px;
+                height: 150px;
+                object-fit: cover;
+                border-radius: 8px;
+                cursor: pointer;
+
+                @media (max-width: $breakpoint-sm) {
+                    width: 110px;
+                    height: 130px;
+                }
             }
-        }
 
-        .quantity-button {
-            color: $color-black;
-            border: 1px solid $color-primary-600;
-
-            &:hover {
-                background-color: $color-primary-200;
+            .title-block {
+                font-size: 1.25rem;
+                font-weight: $font-weight-bold;
             }
-        }
 
-        .quantity-button.disabled {
-            opacity: 0.2;
-        }
+            // info block del prodotto (titolo prezzo)
+            .price-block {
+                font-size: 1.15rem;
+                font-family: $font-family-base;
+            }
 
-        i.trash {
-            cursor: pointer;
+            // bottone per modificare quantità di esso con fetch 
+            .quantity-button {
+                color: $color-black;
+                border: 1px solid $color-primary-600;
 
-            &:hover {
-                transform: scale(1.2);
+                &:hover {
+                    background-color: $color-primary;
+                }
+
+                &:disabled {
+                    opacity: 0.15;
+                }
+            }
+
+            .total-label {
+                font-weight: $font-weight-bold;
+            }
+
+            i.trash {
+                font-size: 1.4rem;
+                cursor: pointer;
+
+                &:hover {
+                    transform: scale(1.05);
+                }
             }
         }
     }

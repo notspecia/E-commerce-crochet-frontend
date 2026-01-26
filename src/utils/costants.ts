@@ -15,6 +15,6 @@ export const languages = [
 export const platforms = [
     { id: 'facebook', name: 'Facebook', url: 'https://www.facebook.com/tuapagina', icon: 'bi-facebook' },
     { id: 'instagram', name: 'Instagram', url: 'https://www.instagram.com/tuapagina', icon: 'bi-instagram' },
-    { id: 'youtube', name: 'YouTube', url: 'https://www.youtube.com/tuacanale', icon: 'bi-youtube' },
+    { id: 'tiktok', name: 'Tik Tok', url: 'https://www.instagram.com/tuapagina', icon: 'bi-tiktok' },
     { id: 'vinted', name: 'Vinted', url: 'https://www.vinted.it', icon: 'bi-bag' } // fallback per Vinted
 ];

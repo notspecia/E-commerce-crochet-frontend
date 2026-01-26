@@ -31,8 +31,8 @@ const props = defineProps<{
             <!-- Lista prodotti -->
             <h5 class="mt-4">Prodotti acquistati</h5>
             <ul class="list-group mt-2">
-                <li class=" d-flex justify-content-between align-items-center" v-for="prod in props.order.products"
-                    :key="prod.documentId">
+                <li v-for="prod in props.order.products" :key="prod.documentId"
+                    class="d-flex justify-content-between align-items-center">
                     <span>{{ prod.productName }}</span>
                     <span>× {{ prod.quantity }}</span>
                 </li>

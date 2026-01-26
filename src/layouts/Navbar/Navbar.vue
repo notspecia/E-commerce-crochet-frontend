@@ -145,7 +145,7 @@ watchEffect(() => {
             <!-- Gestione utente -->
             <div class="position-relative">
                 <!-- Utente non loggato -->
-                <i v-if="!userStore.isLoggedIn" class="bi bi-person-add user" @click="handleUser"
+                <i v-if="!userStore.isLoggedIn" class="bi bi-person-add user fs-2" @click="handleUser"
                     title="Accedi o registrati"></i>
                 <!-- Utente loggato -->
                 <DropdownUser v-else @handleUser="handleUser" />
@@ -231,9 +231,9 @@ nav {
     // effetti animazione sul cart prodotti icon
     i.cart,
     i.user {
-        display: inline-block; // 🔑 così transform funziona SEMPRE
+        display: inline-block; // così transform funziona SEMPRE
         transition: all 0.2s ease-in-out;
-        font-size: 1.85rem;
+        font-size: 2.4rem;
 
         &:hover {
             color: $color-gray-900;

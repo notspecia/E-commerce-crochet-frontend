@@ -13,7 +13,8 @@ import FormContactsMessage from '@/components/FormContactsMessage.vue';
         <div class="social-row row g-5" role="navigation" aria-label="link social">
             <a v-for="p in platforms" :key="p.id" :href="p.url" class="social-link col-6 col-sm-3 text-center"
                 :aria-label="p.name" target="_blank" rel="noopener noreferrer">
-                <i :class="['bi', p.icon]" aria-hidden="true"></i>
+                <i :class="['bi', p.icon]" aria-hidden="true" />
+                <span>{{ p.name }}</span>
             </a>
         </div>
         <!-- form for sending fast message directly -->
@@ -38,12 +39,20 @@ h2.header {
 
     // icons style
     .social-link {
+        display: flex;
+        flex-direction: column;
         font-size: 3rem;
         color: $color-gray-900;
+        text-decoration: none;
 
-        &:hover {
-            color: $color-gray-800;
+        &:hover i {
+            color: $color-primary-900;
             animation: shake 0.4s ease-in-out;
+        }
+
+        span {
+            font-family: $font-family-hand;
+            font-size: 1.5rem;
         }
     }
 

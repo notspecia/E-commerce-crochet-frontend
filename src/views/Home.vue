@@ -180,7 +180,7 @@ header {
   border-radius: 10px;
 
   @media (max-width: $breakpoint-lg) {
-    background: linear-gradient(110deg,
+    background: linear-gradient(45deg,
         $color-white 30%,
         $color-primary 70%);
     padding: 50px 0;

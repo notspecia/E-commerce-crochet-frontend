@@ -20,6 +20,7 @@ const reviewsStore = useReviewsStore();
 /* REF */
 const showModalReview = ref<boolean>(false); // stato per gestire l'apertura/chiusura della modale recensione prodotto
 const showAllReviews = ref<boolean>(false);
+const reviewsTitle = ref<HTMLElement>(); // elemento titolo da tipparsi al click di mostrare tutte le recensioni
 const observer = ref<IntersectionObserver | null>(null);
 const sentinel = ref<HTMLElement | null>(null);
 
@@ -44,12 +45,18 @@ const canHideReviews = computed(() => {
 const handleReview = (): void => {
     showModalReview.value = !showModalReview.value; // inversione value attiva disattiva
 }
+const goTopReviews = (): void => {
+    reviewsTitle.value?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
+}
 
 // funzione attivita e messa in funzione dopo che accettiamo di vedere tutte le recensioni, attivato observer per fetchare 3 recensioni alla volta!
 const enableInfiniteScroll = async () => {
-    goTopPage(1000)
     showAllReviews.value = true;
     await nextTick(); // wait DOM update
+    goTopReviews();
 
     observer.value = new IntersectionObserver(entries => {
         if (entries[0].isIntersecting && hasMoreReviews.value) {
@@ -65,6 +72,7 @@ const enableInfiniteScroll = async () => {
 
 const hideAllReviews = () => {
     showAllReviews.value = false;
+    goTopReviews();
     // disconnetti observer
     if (observer.value) {
         observer.value.disconnect();
@@ -91,7 +99,7 @@ onUnmounted(() => {
 
 <template>
     <section>
-        <h3 class="header title-line">
+        <h3 ref="reviewsTitle" class="header title-line">
             <span>Customer Reviews</span>
         </h3>
 

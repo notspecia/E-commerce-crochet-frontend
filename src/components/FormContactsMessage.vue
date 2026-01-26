@@ -16,8 +16,8 @@ const messageContact = reactive<MessageContact>({
 });
 
 /* REF */
-const error = ref<null | string>(null);
 const isLoading = ref<boolean>(false);
+const error = ref<null | string>(null);
 
 /* FUNCTIONS */
 const submitMessage = async () => {
@@ -47,8 +47,9 @@ watch(
 
 
 <template>
-    <h2 class="header mb-4">Invia una richiesta rapida</h2>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellendus sint in quos similique qui, eius, quod
+    <h2 class="header mb-4">Invia una richiesta rapida!</h2>
+    <p class="mb-5">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellendus sint in quos similique qui,
+        eius, quod
         ducimus repudiandae, placeat nam beatae atque exercitationem consectetur dolorum vero! Ut quidem earum deleniti?
         Voluptatibus impedit hic excepturi ex architecto porro, explicabo accusantium placeat laborum fugit similique
         rem quisquam aut voluptatum quod eos molestias officia atque! Quis beatae cumque officiis sunt? Doloribus, nisi
