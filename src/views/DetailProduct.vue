@@ -55,7 +55,7 @@ onMounted(() => {
     <Loader v-if="productStore.stateProduct.isLoading" />
     <!-- generic error, da mettere custom per ogni lingua  -->
     <p v-else-if="productStore.stateProduct.error" class="text-danger">{{ productStore.stateProduct.error }}</p>
-    <!-- template component con il dettaglio del prodotto + recensioni -->
+    <!-- template component con il dettaglio del prodotto (product.ts) + recensioni (reviews.ts) + prodotti consigliati (relatedProducts.ts) -->
     <template v-else-if="productStore.stateProduct.product && !productStore.stateProduct.isLoading">
         <Product :product="productStore.stateProduct.product" />
         <Reviews :productId="productStore.stateProduct.product.documentId" />

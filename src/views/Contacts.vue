@@ -45,7 +45,7 @@ h2.header {
         color: $color-gray-900;
         text-decoration: none;
 
-        &:hover i {
+        &:hover {
             color: $color-primary-900;
             animation: shake 0.4s ease-in-out;
         }

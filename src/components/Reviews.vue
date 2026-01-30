@@ -46,6 +46,8 @@ const handleReview = (): void => {
     showModalReview.value = !showModalReview.value; // inversione value attiva disattiva
 }
 const goTopReviews = (): void => {
+    console.log(reviewsTitle.value); // debug
+
     reviewsTitle.value?.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
@@ -99,6 +101,7 @@ onUnmounted(() => {
 
 <template>
     <section>
+        <!-- linked ref whit value for teleport to the element when function is invocated goTopReviews() -->
         <h3 ref="reviewsTitle" class="header title-line">
             <span>Customer Reviews</span>
         </h3>

@@ -18,3 +18,9 @@ export const platforms = [
     { id: 'tiktok', name: 'Tik Tok', url: 'https://www.instagram.com/tuapagina', icon: 'bi-tiktok' },
     { id: 'vinted', name: 'Vinted', url: 'https://www.vinted.it', icon: 'bi-bag' } // fallback per Vinted
 ];
+
+// Array of categories filters to apply on products (collection category on stapi backend)
+export const categories = [
+    "portachiavi",
+    "pupazzo"
+]

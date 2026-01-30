@@ -29,7 +29,7 @@ const handleAddToCart = async () => {
 
 
 <template>
-    <div class="product-item col-12 col-sm-6 col-lg-4 col-xl-3">
+    <div class="product-item col-12 col-sm-6 col-lg-4">
         <div class="d-flex justify-content-center">
             <img :src="`${API_BASE_URL}${props.product.images[0].url}`"
                 :alt="`${props.product.images[0].alternativeText}`" @click="goProductDetails" />

@@ -107,15 +107,13 @@ const router = useRouter();
 
   <!-- CTA FINALE COMMISSIONI -->
   <section class="final-cta">
-
     <div class="cta-content">
       <h3>{{ $t('home.customOrder.title') }}</h3>
       <p>{{ $t('home.customOrder.text') }}</p>
-      <button class="btn btn-one" @click="() => router.push('/contatti')">
+      <button class="btn btn-two fs-5" @click="() => router.push('/contatti')">
         {{ $t('home.customOrder.button') }}
       </button>
     </div>
-
   </section>
 </template>
 
@@ -124,10 +122,9 @@ const router = useRouter();
 <style scoped lang="scss">
 // responsive header section con immagini hero
 header {
-
   .header-mobile {
-    width: 80vw;
     display: block;
+    width: 80vw;
     margin: 0 auto;
 
     @media (min-width: $breakpoint-md) {
@@ -142,20 +139,21 @@ header {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 10px;
+      gap: 20px;
       margin: 0 auto;
-      width: 33vw;
+      width: clamp(50%, 35vw, 60%);
+    }
 
-      img {
-        width: 100%;
-        height: auto;
+    img {
+      width: 100%;
+      height: auto;
 
-        &.figure {
-          width: 30%;
-        }
+      &.figure {
+        width: clamp(20%, 20vw, 30%);
       }
     }
   }
+
 }
 
 .container {
@@ -173,7 +171,7 @@ header {
 
 //about me SECTION ----------------
 .about {
-  background: linear-gradient(25deg,
+  background: linear-gradient(165deg,
       $color-white 20%,
       $color-primary 50%);
   padding: 80px 0;
@@ -330,11 +328,10 @@ header {
 // CTA FINALE
 .final-cta {
   padding: 80px 0;
-  background: linear-gradient(135deg, $color-primary 0%, $color-secondary 100%);
 
   .cta-content {
     text-align: center;
-    color: white;
+    color: $color-black;
 
     h3 {
       font-size: 2.2rem;
@@ -342,7 +339,7 @@ header {
       margin-bottom: 1rem;
 
       @media (max-width: $breakpoint-md) {
-        font-size: 1.8rem;
+        font-size: 1.7rem;
       }
     }
 
@@ -350,20 +347,10 @@ header {
       font-size: 1.2rem;
       margin-bottom: 2rem;
       max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 20px auto;
 
       @media (max-width: $breakpoint-md) {
         font-size: 1rem;
-      }
-    }
-
-    button {
-      background: white;
-      color: $color-primary;
-
-      &:hover {
-        background: rgba(255, 255, 255, 0.9);
       }
     }
   }
