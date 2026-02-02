@@ -8,6 +8,7 @@ import type Product from '@/models/Product.model';
 /* PROPS TS */
 const props = defineProps<{
     product: Product;
+    areRelated?: boolean;
 }>();
 
 /* USEROUTER */
@@ -29,7 +30,7 @@ const handleAddToCart = async () => {
 
 
 <template>
-    <div class="product-item col-12 col-sm-6 col-lg-4">
+    <div class="product-item col-12 col-sm-6" :class="areRelated ? 'col-lg-3' : 'col-lg-4'">
         <div class="d-flex justify-content-center">
             <img :src="`${API_BASE_URL}${props.product.images[0].url}`"
                 :alt="`${props.product.images[0].alternativeText}`" @click="goProductDetails" />

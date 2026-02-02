@@ -21,7 +21,7 @@ export const useReviewsStore = defineStore('reviews', () => {
         isLoading: false as boolean,
         error: null as null | string,
         start: 0 as number,
-        limit: 4 as number,
+        limit: 3 as number,
         total: 0 as number
     });
 

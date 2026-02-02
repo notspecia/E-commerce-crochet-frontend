@@ -1,7 +1,17 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
+import { goTopPage } from '@/utils/utils';
 
+
+/* ROUTER */
 const router = useRouter();
+
+
+/* FUNCTIONS */
+const goProductsPage = (): void => {
+  router.push('/products');
+  goTopPage();
+}
 </script>
 
 
@@ -19,14 +29,17 @@ const router = useRouter();
       <img src="@/assets/images/giogi-header-desktop-label.png" class="label" alt="Testo hero" />
       <img src="@/assets/images/giogi-header-desktop-figure.png" class="figure" alt="Figura persona con animale" />
     </div>
+    <!-- <h2 class="mt-5">{{ $t('home.subtitle') }}</h2> -->
+    <div class="text-center mt-5">
+      <button class="btn btn-one" @click="goProductsPage">
+        {{ $t('home.CTA') }}
+      </button>
+    </div>
+    <!-- scroll icon pagination continue -->
+    <div class="scroll-icon">
+      <img src="@/assets/images/scroll.svg" alt="scorri pagina">
+    </div>
   </header>
-
-  <!-- <h2 class="mt-5">{{ $t('home.subtitle') }}</h2> -->
-  <div class="text-center my-5">
-    <button class="btn btn-one mb-5" @click="() => router.push(`/products`)">
-      {{ $t('home.CTA') }}
-    </button>
-  </div>
 
   <!-- CHI SONO SECTION -->
   <section class="about my-5">
@@ -75,9 +88,9 @@ const router = useRouter();
   </section>
 
   <!-- GALLERY CREAZIONI -->
-  <section class="gallery-section my-5">
+  <section class="gallery-section my-5" @click="goProductsPage">
     <h3 class="section-title">{{ $t('home.gallery.title') }}</h3>
-    <div class="row g-2">
+    <div class="row g-2" @click="router.push('/products')">
       <!-- COLONNA SINISTRA -->
       <div class="col-12 col-md-3 d-flex flex-row flex-md-column gap-3">
         <div class="gallery-item tall">
@@ -110,7 +123,7 @@ const router = useRouter();
     <div class="cta-content">
       <h3>{{ $t('home.customOrder.title') }}</h3>
       <p>{{ $t('home.customOrder.text') }}</p>
-      <button class="btn btn-two fs-5" @click="() => router.push('/contatti')">
+      <button class="btn btn-two fs-5" @click="() => { router.push('/contacts'); goTopPage(); }">
         {{ $t('home.customOrder.button') }}
       </button>
     </div>
@@ -122,9 +135,16 @@ const router = useRouter();
 <style scoped lang="scss">
 // responsive header section con immagini hero
 header {
+  position: relative;
+  min-height: calc(100vh - 190px); // ← altezza navbar con margin height
+
+  @media (max-width: $breakpoint-md) {
+    min-height: calc(100vh - 200px); // ← altezza navbar con margin height
+  }
+
   .header-mobile {
     display: block;
-    width: 80vw;
+    width: 85vw;
     margin: 0 auto;
 
     @media (min-width: $breakpoint-md) {
@@ -141,7 +161,7 @@ header {
       align-items: center;
       gap: 20px;
       margin: 0 auto;
-      width: clamp(50%, 35vw, 60%);
+      width: clamp(45%, 35vw, 55%);
     }
 
     img {
@@ -154,6 +174,16 @@ header {
     }
   }
 
+  .scroll-icon {
+    position: absolute;
+    left: 50%;
+    margin-top: 50px;
+    animation: bounce 2s ease-in-out infinite;
+
+    img {
+      width: 50px;
+    }
+  }
 }
 
 .container {
@@ -171,16 +201,18 @@ header {
 
 //about me SECTION ----------------
 .about {
-  background: linear-gradient(165deg,
-      $color-white 20%,
-      $color-primary 50%);
+  // background: linear-gradient(165deg,
+  //     $color-white 20%,
+  //     $color-primary 50%);
+  background-color: $color-white;
   padding: 80px 0;
   border-radius: 10px;
+  border: 4px solid black;
 
   @media (max-width: $breakpoint-lg) {
-    background: linear-gradient(45deg,
-        $color-white 30%,
-        $color-primary 70%);
+    // background: linear-gradient(45deg,
+    //     $color-white 30%,
+    //     $color-primary 70%);
     padding: 50px 0;
   }
 

@@ -47,7 +47,7 @@ watch(
 
 
 <template>
-    <h2 class="header mb-4">Invia una richiesta rapida!</h2>
+    <h2 class="header mb-4 title-line">Invia una richiesta rapida!</h2>
     <p class="mb-5">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellendus sint in quos similique qui,
         eius, quod
         ducimus repudiandae, placeat nam beatae atque exercitationem consectetur dolorum vero! Ut quidem earum deleniti?

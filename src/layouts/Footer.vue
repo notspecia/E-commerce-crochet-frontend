@@ -40,16 +40,15 @@ const showFooter = computed(() => {
     left: 0;
     bottom: 0;
     z-index: 4;
-    background: $color-third;
-    color: $color-fourth;
+    background: $color-fourth;
+    color: $color-white;
     font-size: 0.9rem;
 
     .footer-link {
-        color: $color-primary; // arancio volpe
         text-decoration: none;
 
         &:hover {
-            color: $color-fourth; // verde salvia tenue
+            // color: $color-fourth; // verde salvia tenue
             text-decoration: underline;
         }
     }

@@ -94,7 +94,7 @@ watchEffect(() => {
     <!-- sfondo nero dietro il menu a tendina (quando aperto menu a tendina mobile ) -->
     <div v-if="menuIsOpen || cartStore.cartIsOpen" class="overlay" @click="handleOverlayClick" />
 
-    <nav class="pt-3 mb-5 pb-md-5" v-if="showNavbar">
+    <nav class="pt-3 mb-5 pb-5" v-if="showNavbar">
         <!-- 
         hamburger icon per aprire menus, renderizzata sotto un brk specifico! 1 sezione (mobile) +
         componente mobile navbar con la tendina hamburger clicckato, passato booleano come props per montare il componente con animazione

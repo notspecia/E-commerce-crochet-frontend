@@ -30,7 +30,7 @@ const handleReading = (): void => {
 
 
 <template>
-    <div class="review-item col-12 col-lg-5">
+    <div class="review-item">
         <p class="review-user mb-1">
             <img src="@/assets/images/user.png">
             {{ review.username }}
@@ -55,8 +55,9 @@ const handleReading = (): void => {
 <style lang="scss" scoped>
 // card item recensione singola
 .review-item {
-    background-image: url(@/assets/images/foglio.png);
-    background-color: rgba(255, 255, 255, 0.7);
+    width: 60%;
+    // background-image: url(@/assets/images/foglio.png);
+    background-color: rgba(255, 255, 255, 0.9);
     background-blend-mode: lighten;
     background-position: right;
     background-size: cover;
@@ -65,6 +66,10 @@ const handleReading = (): void => {
     border-radius: 5px;
     height: fit-content;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+    @media (max-width: $breakpoint-lg) {
+        width: 100%;
+    }
 
     .review-user {
         display: flex;
@@ -80,7 +85,6 @@ const handleReading = (): void => {
     .star-rating {
         gap: 0.3rem;
         display: flex;
-
 
         i.bi-star-fill {
             color: $color-primary-600;

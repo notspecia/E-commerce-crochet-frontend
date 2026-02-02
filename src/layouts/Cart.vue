@@ -156,8 +156,8 @@ const goDetailProduct = (documentId: string): void => {
             }
 
             .title-block {
-                font-size: 1.25rem;
-                font-weight: $font-weight-bold;
+                font-size: 1.3rem;
+                // font-weight: $font-weight-bold;
             }
 
             // info block del prodotto (titolo prezzo)

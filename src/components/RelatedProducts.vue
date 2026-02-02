@@ -16,7 +16,7 @@ const relatedProductsStrore = useRelatedProductsStore();
         <!-- cycling related products usaing cards preview of products -->
         <div v-else class="row g-5">
             <ProductPreviewCard v-for="product in relatedProductsStrore.relatedProducts" :key="product.id"
-                :product="product" />
+                :product="product" are-related />
         </div>
     </section>
 </template>

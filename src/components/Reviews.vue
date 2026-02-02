@@ -109,7 +109,7 @@ onUnmounted(() => {
         <!-- modale creazione recensione del prodotto -->
         <ModalReview :show="showModalReview" @close="handleReview" />
 
-        <div class="p-3">
+        <div class="p-0 py-3 p-lg-3">
             <!-- Primo LAODING del caricameno dei 3 recensioni -->
             <Loader v-if="isInitialLoading" />
             <!-- errore generico-->
@@ -122,7 +122,7 @@ onUnmounted(() => {
             </p>
             <!-- LISTA RECENSIONI -->
             <template v-else>
-                <div class="row row-gap-4 column-gap-5">
+                <div class="d-flex flex-column gap-3">
                     <ReviewCard v-for="(review, index) in reviewsStore.stateReviews.reviews" :key="index"
                         :review="review" />
                 </div>
