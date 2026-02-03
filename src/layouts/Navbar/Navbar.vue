@@ -99,7 +99,7 @@ watchEffect(() => {
         hamburger icon per aprire menus, renderizzata sotto un brk specifico! 1 sezione (mobile) +
         componente mobile navbar con la tendina hamburger clicckato, passato booleano come props per montare il componente con animazione
         -->
-        <i class="bi bi-list fs-1 hamburger" @click="toggleMenu" />
+        <i class="bi bi-list hamburger" @click="toggleMenu" />
         <transition name="slide-left">
             <MobileNavbar v-if="menuIsOpen" @close="toggleMenu" @setLanguage="setLanguage"
                 :selectedLang="selectedLang" />
@@ -145,7 +145,7 @@ watchEffect(() => {
             <!-- Gestione utente -->
             <div class="position-relative">
                 <!-- Utente non loggato -->
-                <i v-if="!userStore.isLoggedIn" class="bi bi-person-add user fs-2" @click="handleUser"
+                <i v-if="!userStore.isLoggedIn" class="bi bi-person-add user" @click="handleUser"
                     title="Accedi o registrati"></i>
                 <!-- Utente loggato -->
                 <DropdownUser v-else @handleUser="handleUser" />
@@ -177,6 +177,7 @@ nav {
     // hamburger icon per aprire il menu mobile
     .hamburger {
         display: none; // nascosta per brk > 992px
+        font-size: 2.5rem;
         cursor: pointer;
 
         @media (max-width: $breakpoint-lg) {

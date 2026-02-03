@@ -60,7 +60,6 @@ export const useOrdersStore = defineStore('orders', () => {
     const createStripeCheckoutSession = async (): Promise<void> => {
         try {
             const token = userStore.stateUser.bearerToken;
-
             const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
             if (!stripe || !userStore.isLoggedIn) {

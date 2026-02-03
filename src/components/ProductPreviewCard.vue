@@ -35,7 +35,7 @@ const handleAddToCart = async () => {
             <img :src="`${API_BASE_URL}${props.product.images[0].url}`"
                 :alt="`${props.product.images[0].alternativeText}`" @click="goProductDetails" />
         </div>
-        <div class="d-flex justify-content-between align-items-center mt-3">
+        <div class="d-flex justify-content-between align-items-center mt-2">
             <p class="product-title mb-0" @click="goProductDetails">{{ props.product.title }}</p>
             <img src="@/assets/images/add-cart-dark.png" alt="aggiungi al carrello" class="cart-add"
                 @click="handleAddToCart"></img>

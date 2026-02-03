@@ -44,7 +44,7 @@ onMounted(() => {
 
 <template>
     <div class="d-flex flex-column justify-content-center align-items-center vh-100">
-        <form class="card card-form py-4 px-5" @submit.prevent="submitLogin">
+        <form class="card card-form py-4 px-3 px-sm-5" @submit.prevent="submitLogin">
             <div class="mb-4">
                 <RouterLink to="/">
                     <img src="@/assets/logos/header-logo.png" alt="logo sito" class="logo">

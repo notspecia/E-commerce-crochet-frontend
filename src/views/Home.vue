@@ -136,11 +136,7 @@ const goProductsPage = (): void => {
 // responsive header section con immagini hero
 header {
   position: relative;
-  min-height: calc(100vh - 190px); // ← altezza navbar con margin height
-
-  @media (max-width: $breakpoint-md) {
-    min-height: calc(100vh - 200px); // ← altezza navbar con margin height
-  }
+  min-height: calc(100vh - 200px); // ← altezza navbar con margin height  min-height: calc(100vh - 10px); // ← altezza navbar con margin height
 
   .header-mobile {
     display: block;
@@ -186,10 +182,12 @@ header {
   }
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
+
+// 
+// .container {
+//   max-width: 1200px;
+//   margin: 0 auto;
+// }
 
 .section-title {
   font-size: 2.5rem;
@@ -204,10 +202,10 @@ header {
   // background: linear-gradient(165deg,
   //     $color-white 20%,
   //     $color-primary 50%);
-  background-color: $color-white;
-  padding: 80px 0;
-  border-radius: 10px;
-  border: 4px solid black;
+  // background-color: $color-white;
+  padding: 30px 0;
+  // border-radius: 10px;
+  // border: 4px solid black;
 
   @media (max-width: $breakpoint-lg) {
     // background: linear-gradient(45deg,

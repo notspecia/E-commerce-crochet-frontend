@@ -6,6 +6,7 @@ import { goTopPage } from '@/utils/utils';
 import ProductPreviewCard from '@/components/ProductPreviewCard.vue';
 import Loader from '@/components/Loader.vue';
 import type Product from '@/models/Product.model';
+import Filters from '@/components/Filters.vue';
 
 
 /* PRODUCTS PINIA STATE */
@@ -44,6 +45,11 @@ const setCategory = (category: string): void => {
     selectedCategory.value = category;
     goTopPage();
 }
+
+const resetFilters = (): void => {
+    selectedCategory.value = "";
+    searchKeyWord.value = "";
+}
 </script>
 
 
@@ -61,74 +67,21 @@ const setCategory = (category: string): void => {
     -->
     <Loader v-if="productsStore.stateProducts.isLoading" />
     <p v-else-if="productsStore.stateProducts.error" class="text-danger">{{ productsStore.stateProducts.error }}</p>
-    <div v-else class="row gap-0 gap-lg-4">
-        <!-- FILTRI -->
-        <div class="filters col-12 col-lg-2 order-1 order-lg-2 mb-5">
-            <div>
-                <p class="fs-4">Categorie</p>
-                <hr>
-                <p v-for="(category, index) in categories" @click="setCategory(category)"
-                    :class="selectedCategory === category ? 'text-decoration-underline fw-bold' : ''">
-                    {{ category }}
-                </p>
-            </div>
-            <div>
-                <p class="fs-4">Cerca Prodotto<i class="ms-1 bi bi-search"></i></p>
-                <input v-model="searchKeyWord" type="text" class="form-control mb-3" placeholder="scrivi qui..." />
-            </div>
-        </div>
-        <!-- PRODOTTI CARDS PREVIEW -->
+    <div v-else class="row gap-0 gap-lg-4 justify-content-center">
+        <Filters :selected-category="selectedCategory" v-model:searchKeyWord="searchKeyWord" @set-category="setCategory"
+            @reset-filters="resetFilters" />
+        <!-- PRODOTTI CARDS PREVIEW || no prodotti trovati -->
         <div class="col-12 col-lg-10 order-2 order-lg-1 row row-gap-5">
-            <ProductPreviewCard v-for="product in productsFiltered" :key="product.id" :product="product" />
+            <ProductPreviewCard v-if="productsFiltered.length > 0" v-for="product in productsFiltered" :key="product.id"
+                :product="product" />
+            <div v-else class="text-center mt-5">
+                <p class="fs-3">Nessun prodotto trovato!</p>
+                <button class="btn btn-danger" @click="resetFilters">Rimuovi filtri</button>
+            </div>
         </div>
     </div>
 </template>
 
 
 
-<style scoped lang="scss">
-.form-control {
-    background: none;
-    border: none;
-    color: $color-black;
-    padding: 7px;
-    border-bottom: 2px solid $color-gray-900;
-
-    &::placeholder {
-        color: $color-gray-900;
-    }
-
-    &:focus {
-        background: none;
-        border: 0;
-        border-bottom: 3px solid $color-gray-900;
-        box-shadow: none;
-    }
-}
-
-
-// .form-control {
-//     background-color: $color-gray-200;
-//     color: $color-black;
-//     font-family: $font-family-base;
-//     padding: 10px;
-
-//     &::placeholder {
-//         color: $color-gray-600;
-//     }
-
-//     &:focus {
-//         color: $color-black;
-//         background-color: $color-white;
-//         border: 1px solid $color-primary-200;
-//         box-shadow: 0 0 0 0.15rem rgba($color-primary, 0.75);
-//     }
-// }
-
-.filters {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    cursor: pointer;
-}
-</style>
+<style scoped lang="scss"></style>
