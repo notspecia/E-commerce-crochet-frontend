@@ -5,6 +5,7 @@ import { useCartStore } from "./cart";
 import { useToastStore } from "./toast";
 import { API_BASE_URL } from "@/utils/costants";
 import { authUser } from "@/apis/Auth.api";
+import { HOME, LOGIN } from '@/router';
 import type Login from "@/models/Login.model";
 import type Register from "@/models/Register.model";
 import type User from "@/models/User.model";
@@ -59,7 +60,7 @@ export const useUserStore = defineStore("user", () => {
             }
             cartStore.loadCart(); // carico il carrello dell'utente loggato
             // redirect to home page
-            router.push("/");
+            router.push({ name: HOME.name });
         } catch (err: any) {
             stateUser.error = err.message || "Errore autenticazione";
         } finally {
@@ -76,7 +77,7 @@ export const useUserStore = defineStore("user", () => {
         cartStore.clearCart();
         // redirect to login page
         toastStore.addToast("light", "Disconnesione dall'account effetuata con successo!");
-        router.push("/login");
+        router.push({ name: LOGIN.name });
     };
 
     // reset errors while touching fields of register and login

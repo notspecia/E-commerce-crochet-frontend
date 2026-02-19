@@ -3,6 +3,7 @@ import { useRouter } from 'vue-router';
 import { API_BASE_URL } from '@/utils/costants';
 import { useCartStore } from '@/stores/cart';
 import { useProductsStore } from '@/stores/products';
+import { PRODUCTS, PRODUCT_DETAIL } from '@/router';
 import Loader from '@/components/Loader.vue';
 import CheckoutButton from '@/components/CheckoutButton.vue';
 
@@ -18,7 +19,12 @@ const productsStore = useProductsStore();
 // on click image on cart go to the detail of the product
 const goDetailProduct = (documentId: string): void => {
     cartStore.toggleCart();
-    router.push(`/products/${documentId}`);
+    router.push(
+        {
+            name: PRODUCT_DETAIL.name,
+            params: { documentId }
+        }
+    );
 }
 </script>
 
@@ -44,7 +50,7 @@ const goDetailProduct = (documentId: string): void => {
         <div v-else-if="!cartStore.productsCart.length" class="text-center py-5">
             <p class="fs-5 mb-4">Il tuo carrello è vuoto</p>
             <button class="btn btn-one text-white"
-                @click="() => { router.push(`/products`); cartStore.cartIsOpen = false }">
+                @click="() => { router.push({ name: PRODUCTS.name }); cartStore.cartIsOpen = false }">
                 Visualizza i prodotti
             </button>
         </div>

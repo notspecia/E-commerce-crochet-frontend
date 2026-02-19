@@ -7,6 +7,7 @@ import { useToastStore } from "./toast";
 import { goTopPage } from "../utils/utils";
 import { createUserCart, fetchUserCart, syncUserCart } from "../apis/Cart.api";
 import { API_BASE_URL } from "../utils/costants";
+import { REGISTER } from "@/router";
 import type ProductSelected from "../models/ProductSelected.model";
 import type ProductCart from "../models/ProductCart.model";
 import type Product from "../models/Product.model";
@@ -79,7 +80,7 @@ export const useCartStore = defineStore("cart", () => {
     // funzione per aggiungere un prodotto al carrello (se non presente lo aggiunge, se presente aumenta la quantità) e richiama il syncCart        
     const addToCart = async (product: Product, quantity: number = 1) => {
         if (!userStore.isLoggedIn) {
-            router.push('/register'); // se non loggato reindirizzo alla pagina di registrazione
+            router.push({ name: REGISTER.name }); // se non loggato reindirizzo alla pagina di registrazione
             toastStore.addToast("danger", "Devi essere registrato per poter effettuare un ordine!");
             return;
         }

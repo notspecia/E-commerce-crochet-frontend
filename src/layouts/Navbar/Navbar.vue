@@ -5,6 +5,7 @@ import { useI18n } from 'vue-i18n';
 import { languages } from '@/utils/costants';
 import { useCartStore } from '@/stores/cart';
 import { useUserStore } from '@/stores/user';
+import { LOGIN } from '@/router';
 import MobileNavbar from './MobileNavbar.vue';
 import DropdownLanguages from '@/components/DropdownLanguages.vue';
 import ModalConfirm from '@/components/ModalConfirm.vue';
@@ -72,7 +73,9 @@ const handleUser = (): void => {
     if (userStore.isLoggedIn) {
         showModalLogout.value = true; // mostra il modal di conferma logout
     } else {
-        router.push(`/login`); // redirect a login
+        router.push({
+            name: LOGIN.name
+        });
     }
 }
 

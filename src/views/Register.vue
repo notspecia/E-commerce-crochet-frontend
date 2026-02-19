@@ -2,6 +2,7 @@
 import { onMounted, reactive, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/user';
+import { HOME, LOGIN } from "@/router";
 import type Register from '@/models/Register.model';
 
 
@@ -36,7 +37,7 @@ watch(
 /* ONMOUNTED */
 onMounted(() => {
     if (userStore.isLoggedIn) {
-        router.push('/');
+        router.push({ name: HOME.name });
     }
 }); 
 </script>
@@ -53,19 +54,22 @@ onMounted(() => {
                 <h2 class="text-center">Register a new account!</h2>
             </div>
             <!-- Username -->
-            <div class="form-floating mb-4">
-                <input type="text" id="username" name="username" v-model="credentials.username" class="form-control"
-                    placeholder="" aria-label="username input field" required />
+            <div class="form-floating mb-4 input-icon">
+                <i class="bi bi-person icon"></i>
+                <input type="text" id="username" name="username" v-model="credentials.username"
+                    class="form-control username" placeholder="" aria-label="username input field" required />
                 <label for="username">Username</label>
             </div>
             <!-- Email -->
-            <div class="form-floating mb-4">
+            <div class="form-floating mb-4 input-icon">
+                <i class="bi bi-envelope icon"></i>
                 <input type="email" id="email" name="email" v-model="credentials.email" class="form-control"
-                    placeholder="" aria-label="email input field" required />
+                    placeholder="Email" required />
                 <label for="email">Email</label>
             </div>
             <!-- Password -->
-            <div class="form-floating mb-3">
+            <div class="form-floating mb-3 input-icon">
+                <i class="bi bi-lock icon"></i>
                 <input type="password" id="password" name="password" v-model="credentials.password" class="form-control"
                     placeholder="" aria-label="password input field" autocomplete="current-password" required />
                 <label for="password">Password</label>
@@ -75,15 +79,16 @@ onMounted(() => {
                 {{ userStore.stateUser.error }}
             </p>
             <!-- DISCLAIMER -->
-            <div id="privacyHint" class="form-text hint mb-2 text-center">
+            <!-- <div id="privacyHint" class="form-text hint mb-2 text-center">
                 I tuoi dati sono protetti e non saranno condivisi con nessuno.
-            </div>
+            </div> -->
             <!-- sumbit register -->
             <button type="submit" class="btn btn-two d-inline-block mx-auto w-100 fs-5">
-                Registrati
+                Registrati <i class="bi bi-chevron-right"></i>
             </button>
             <!-- Redirect a login -->
-            <p class="link-account mt-2" @click="() => { router.push('/login'); userStore.stateUser.error = '' }">
+            <p class="link-account mt-2"
+                @click="() => { router.push({ name: LOGIN.name }); userStore.stateUser.error = '' }">
                 Hai già un account? Accedi!
             </p>
         </form>

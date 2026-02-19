@@ -2,6 +2,7 @@
 import { onMounted, reactive, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/user';
+import { HOME, REGISTER } from "@/router";
 import type Login from '@/models/Login.model';
 
 
@@ -35,7 +36,7 @@ watch(
 /* ONMOUNTED */
 onMounted(() => {
     if (userStore.isLoggedIn) {
-        router.push('/');
+        router.push({ name: HOME.name });
     }
 }); 
 </script>
@@ -52,13 +53,15 @@ onMounted(() => {
                 <h2 class="text-center">Login</h2>
             </div>
             <!-- username or email -->
-            <div class="form-floating mb-4">
+            <div class="form-floating mb-4 input-icon">
+                <i class="bi bi-person icon"></i>
                 <input type="text" id="username" name="username" v-model="credentials.identifier" class="form-control"
                     placeholder="" aria-label="username or email input field" required />
                 <label for="username">Username or Email</label>
             </div>
             <!-- password -->
-            <div class="form-floating mb-3">
+            <div class="form-floating mb-3 input-icon">
+                <i class="bi bi-lock icon"></i>
                 <input type="password" id="password" name="password" v-model="credentials.password" class="form-control"
                     placeholder="" aria-label="password input field" required />
                 <label for="password">Password</label>
@@ -68,13 +71,16 @@ onMounted(() => {
                 {{ userStore.stateUser.error }}
             </p>
             <!-- DISCLAIMER -->
-            <div id="privacyHint" class="form-text hint mb-2 text-center">
+            <!-- <div id="privacyHint" class="form-text hint mb-2 text-center">
                 I tuoi dati sono protetti e non saranno condivisi con nessuno.
-            </div>
+            </div> -->
             <!-- submit button -->
-            <button type="submit" class="btn btn-two d-inline-block mx-auto w-100 fs-5">Accedi</button>
+            <button type="submit" class="btn btn-two d-inline-block mx-auto w-100 fs-5">
+                Accedi <i class="bi bi-chevron-right"></i>
+            </button>
             <!-- redirect a register -->
-            <p class="link-account mt-2" @click="() => { router.push('/register'); userStore.stateUser.error = '' }">
+            <p class="link-account mt-2"
+                @click="() => { router.push({ name: REGISTER.name }); userStore.stateUser.error = '' }">
                 Non hai un account? Registrati subito!
             </p>
         </form>

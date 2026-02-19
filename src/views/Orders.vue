@@ -3,6 +3,7 @@ import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/user';
 import { useOrdersStore } from '@/stores/orders';
+import { HOME, PRODUCTS } from "@/router";
 import OrderCard from '@/components/OrderCard.vue';
 import Loader from '@/components/Loader.vue';
 import GoBack from '@/components/GoBack.vue';
@@ -19,7 +20,7 @@ const userStore = useUserStore();
 onMounted(() => {
     // controllo se l'utente è loggato, altrimenti reindirizzo alla homepage
     if (!userStore.isLoggedIn) {
-        router.push('/');
+        router.push({ name: HOME.name });
     } else {
         // fetch ordini utente loggato
         ordersStore.fetchOrders();
@@ -45,7 +46,7 @@ onMounted(() => {
         <!-- se non presenti ordini nell'account dell'utente -->
         <div v-else class="text-center mt-5 pt-5">
             <p class="fs-4 mb-4">Non hai effetuato ordini!</p>
-            <button class="btn btn-one text-white" @click="() => { router.push(`/products`); }">
+            <button class="btn btn-one text-white" @click="() => { router.push({ name: PRODUCTS.name }); }">
                 Vai ai prodotti
             </button>
         </div>

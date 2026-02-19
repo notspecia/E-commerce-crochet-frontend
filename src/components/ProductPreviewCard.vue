@@ -2,7 +2,9 @@
 import { useRouter } from 'vue-router';
 import { useCartStore } from '@/stores/cart';
 import { API_BASE_URL } from '@/utils/costants';
+import { PRODUCT_DETAIL } from '@/router';
 import type Product from '@/models/Product.model';
+import { ref } from 'vue';
 
 
 /* PROPS TS */
@@ -16,11 +18,15 @@ const router = useRouter();
 
 /* CART e USER e TOAST PINIA STATE */
 const cartStore = useCartStore();
+const productId = ref<string>(props.product.documentId)
 
 /* FUNCTION */
 // used on image and title click to go to product details page
 const goProductDetails = () => {
-    router.push(`/products/${props.product.documentId}`);
+    router.push({
+        name: PRODUCT_DETAIL.name,
+        params: { documentId: productId.value }
+    })
 }
 // funzione handle per aggiungere il prodotto al carrello tramite il metodo addProduct del cartStore di pinia
 const handleAddToCart = async () => {

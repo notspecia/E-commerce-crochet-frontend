@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { goTopPage } from '@/utils/utils';
+import { PRODUCTS, CONTACTS } from '@/router';
 
 
 /* ROUTER */
@@ -9,7 +10,7 @@ const router = useRouter();
 
 /* FUNCTIONS */
 const goProductsPage = (): void => {
-  router.push('/products');
+  router.push({ name: PRODUCTS.name });
   goTopPage();
 }
 </script>
@@ -90,7 +91,7 @@ const goProductsPage = (): void => {
   <!-- GALLERY CREAZIONI -->
   <section class="gallery-section my-5" @click="goProductsPage">
     <h3 class="section-title">{{ $t('home.gallery.title') }}</h3>
-    <div class="row g-2" @click="router.push('/products')">
+    <div class="row g-2" @click="goProductsPage">
       <!-- COLONNA SINISTRA -->
       <div class="col-12 col-md-3 d-flex flex-row flex-md-column gap-3">
         <div class="gallery-item tall">
@@ -123,7 +124,7 @@ const goProductsPage = (): void => {
     <div class="cta-content">
       <h3>{{ $t('home.customOrder.title') }}</h3>
       <p>{{ $t('home.customOrder.text') }}</p>
-      <button class="btn btn-two fs-5" @click="() => { router.push('/contacts'); goTopPage(); }">
+      <button class="btn btn-two fs-5" @click="() => { router.push({ name: CONTACTS.name }); goTopPage(); }">
         {{ $t('home.customOrder.button') }}
       </button>
     </div>

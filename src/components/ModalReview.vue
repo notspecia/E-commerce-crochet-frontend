@@ -6,6 +6,7 @@ import { useProductStore } from '@/stores/product';
 import { useUserStore } from '@/stores/user'
 import { useToastStore } from '@/stores/toast';
 import { useI18n } from 'vue-i18n';
+import { REGISTER } from '@/router';
 import type Review from '@/models/Review.model'
 
 
@@ -88,7 +89,9 @@ const submitReview = async () => {
 watch(() => props.show, (isOpen) => {
     if (isOpen && !userStore.isLoggedIn) {
         emit('close');
-        router.push('/register');
+        router.push({
+            name: REGISTER.name
+        });
         toastStore.addToast('light', 'Devi essere registrato per scrivere una recensione');
     }
 });
