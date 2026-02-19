@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { categories } from '@/utils/costants';
+import { onMounted, ref } from 'vue';
+import { useCategoriesStore } from '@/stores/categories';
 
 
 /* PROPS */
@@ -8,6 +9,16 @@ const props = defineProps<{
     searchKeyWord: string
 }>()
 
+/* PRODUCTS PINIA STATE */
+const categoriesStore = useCategoriesStore();
+
+/* REF */
+const filtersOpen = ref<boolean>(false);
+
+/* FUNCTIONS */
+const toggleFilters = (): void => {
+    filtersOpen.value = !filtersOpen.value;
+}
 
 /* EMITS */
 // per evitare errori con il v-model 
@@ -15,7 +26,13 @@ const emit = defineEmits<{
     (e: 'update:searchKeyWord', value: string): void
     (e: 'set-category', value: string): void
     (e: 'reset-filters'): void
-}>()
+}>();
+
+/* ONMOUNTED */
+// al montaggio dell'app carichiamo le categorie tramite il metodo fetchCategories del Pinia Store
+onMounted(async () => {
+    await categoriesStore.fetchCategories();
+});
 </script>
 
 
@@ -24,10 +41,12 @@ const emit = defineEmits<{
     <!--FILTRI dentro accordion -->
     <div class="accordion col-12 col-lg-2 order-1 order-lg-2 mb-5" id="accordionExample">
         <div class="accordion-item">
-            <h2 class="accordion-header" id="headingFilters" @click="emit('reset-filters')">
-                <button class=" accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            <h2 class="accordion-header" id="headingFilters" @click="() => { emit('reset-filters'); toggleFilters(); }">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters">
-                    Filtri <i class="bi bi-filter-left"></i>
+                    Filtri
+                    <i v-if="!filtersOpen" class="bi bi-filter-left"></i>
+                    <i v-else class="bi bi-x"></i>
                 </button>
             </h2>
             <div id="collapseFilters" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -41,13 +60,13 @@ const emit = defineEmits<{
                             )" type="text" class="form-control mb-3 fs-6" placeholder="scrivi qui..." />
                         </div>
                         <div>
-                            <p class="fs-6 fw-bold mb-2"> Categorie </p>
+                            <p class="fs-6 fw-bold mb-2">Categorie</p>
                             <hr>
-                            <p v-for="(category, index) in categories" :key="index"
-                                @click="emit('set-category', category)"
-                                :class="selectedCategory === category ? 'active-category' : ''"
+                            <p v-for="(category, index) in categoriesStore.stateCategories.categories" :key="index"
+                                @click="emit('set-category', category.title)"
+                                :class="selectedCategory === category.title ? 'active-category' : ''"
                                 class="filter-item fs-6">
-                                {{ category }}
+                                {{ category.title }}
                             </p>
                         </div>
                     </div>

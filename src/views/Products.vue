@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useProductsStore } from '@/stores/products';
-import { categories } from '@/utils/costants';
 import { goTopPage } from '@/utils/utils';
 import ProductPreviewCard from '@/components/ProductPreviewCard.vue';
 import Loader from '@/components/Loader.vue';
@@ -28,7 +27,6 @@ const productsFiltered = computed<Product[]>(() => {
             product => product.category.title === selectedCategory.value
         );
     }
-
     // 2 check -> filtraggio x keyword santificata
     if (searchKeyWord.value.trim()) {
         const keyWord = searchKeyWord.value.toLowerCase().trim(); // puliamo santificazione della keywod research

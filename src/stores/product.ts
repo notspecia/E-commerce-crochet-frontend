@@ -25,6 +25,7 @@ export const useProductStore = defineStore('product', () => {
     const fetchProduct = async (documentId: string) => {
         try {
             stateProduct.isLoading = true;
+            stateProduct.error = null;
             const response = await GetProduct(`${API_BASE_URL}/api/products/${documentId}?populate=*&locale=${locale.value}`);
             stateProduct.product = response;
         } catch (err: any) {

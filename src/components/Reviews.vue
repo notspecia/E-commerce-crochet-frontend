@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, onUnmounted, ref, watch } from 'vue';
-import { useReviewsStore } from '@/stores/review';
+import { useReviewsStore } from '@/stores/reviews';
 import Loader from './Loader.vue';
 import ModalReview from './ModalReview.vue';
 import ReviewCard from './ReviewCard.vue';

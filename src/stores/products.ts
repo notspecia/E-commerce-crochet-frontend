@@ -20,7 +20,8 @@ export const useProductsStore = defineStore('products', () => {
   // funzione per fetchare l array dei products[] con tutti i prodotti 
   const fetchProducts = async (): Promise<void> => {
     try {
-      stateProducts.isLoading = true; // Imposta isLoading a true prima di iniziare il recupero
+      stateProducts.isLoading = true;
+      stateProducts.error = null;
       const response = await GetProducts(`${API_BASE_URL}/api/products`);
       stateProducts.products = response; // assegna i prodotti DATA recuperati alla ref 
     } catch (error) {

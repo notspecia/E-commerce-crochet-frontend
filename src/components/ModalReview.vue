@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref, computed, watch, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router';
-import { useReviewsStore } from '@/stores/review';
+import { useReviewsStore } from '@/stores/reviews';
 import { useProductStore } from '@/stores/product';
 import { useUserStore } from '@/stores/user'
 import { useToastStore } from '@/stores/toast';

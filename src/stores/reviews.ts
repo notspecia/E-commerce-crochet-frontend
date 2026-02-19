@@ -1,5 +1,5 @@
-import { reactive } from 'vue';
 import { defineStore } from 'pinia';
+import { reactive } from 'vue';
 import { useUserStore } from './user';
 import { useToastStore } from './toast';
 import { API_BASE_URL } from '@/utils/costants';
@@ -35,6 +35,7 @@ export const useReviewsStore = defineStore('reviews', () => {
 
         try {
             stateReviews.isLoading = true;
+            stateReviews.error = null;
 
             // costruzione query string per filtrare le recensioni per productDocumentId
             const queryString = qs.stringify({

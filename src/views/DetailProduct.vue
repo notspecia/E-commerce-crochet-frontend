@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { onMounted, watch } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useProductStore } from '@/stores/product';
-import { useReviewsStore } from '@/stores/review';
+import { useReviewsStore } from '@/stores/reviews';
 import { useRelatedProductsStore } from '@/stores/relatedProducts';
 import Product from '@/components/Product.vue';
 import Loader from '@/components/Loader.vue';
@@ -19,10 +19,13 @@ const relatedProductsStrore = useRelatedProductsStore();
 /* ROUTE */
 const route = useRoute();
 
+/* COMPUTED / REF */
+const productId = computed((): string => route.params.documentId as string);
+
 /* FUNCTIONS */
 // used for the change of the route and mount of component detail
 const loadProduct = async (): Promise<void> => {
-    await productStore.fetchProduct(route.params.documentId as string);
+    await productStore.fetchProduct(productId.value);
 
     // dopo aver caricato il prodotto parte load delle recensioni
     if (productStore.stateProduct.product) {
@@ -33,12 +36,9 @@ const loadProduct = async (): Promise<void> => {
 
 /* WATCH */
 // used for check if the documentId detail change while using cart router.push()
-watch(
-    () => route.params.documentId as string,
-    () => {
-        loadProduct();
-    }
-);
+watch(productId, () => {
+    loadProduct();
+}, { immediate: true });
 
 /* ONMOUNTED */
 onMounted(() => {

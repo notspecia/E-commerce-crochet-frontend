@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { reactive } from 'vue';
 import { API_BASE_URL } from '@/utils/costants';
+import { GetCategories } from '@/apis/Categories.api';
 import type Category from '@/models/Category.model';
 
 
