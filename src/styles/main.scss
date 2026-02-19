@@ -1,15 +1,5 @@
-// Bootstrap (se la tua versione supporta @use; altrimenti tieni import temporaneo)
-@use "bootstrap/scss/bootstrap";
-
-// Base e componenti (namespace o as * se vuoi)
-@use "./base/global";
-@use "./base/animations";
-@use "./components/buttons";
-@use "./components/forms";
-@use "./components/navbar";
-@use "./components/dropdown";
-@use "./components/scrollbar";
-@use "./components/headers";
-@use "./components/modals";
-
-// --- START CSS OUTSIDE SCSS FILES USED ---
+// import index scss file of each section style to use on main.js entry point
+// exposed vars style scss
+@use './abstracts/' as *;
+@use "./components/" as *;
+@use "./base/" as *;

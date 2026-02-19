@@ -1,12 +1,13 @@
-import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
+import { fileURLToPath, URL } from 'node:url'
 import vue from '@vitejs/plugin-vue'
-import path from 'path';
+import vueDevTools from 'vite-plugin-vue-devtools'
 
 
 export default defineConfig({
   plugins: [
     vue(),
+    vueDevTools(),
   ],
   resolve: {
     alias: {
@@ -17,8 +18,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        // Qui metti il percorso assoluto del tuo index.scss
-        additionalData: `@use "@/styles/abstracts/index.scss" as *;`
+        additionalData: `@use "@/styles/abstracts" as *;`
       }
     }
   }

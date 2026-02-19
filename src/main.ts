@@ -7,10 +7,13 @@ import App from './App.vue';
 // routes import from router.js 
 import router from './router.js';
 
-// import scss custom main file + bootstrap styles + icons + js interactions
-import '@/styles/main.scss';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+/* STYLE */
+// import of bootstrap styles and scripts, icons
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+// import scss custom main file 
+import "@/styles/main.scss";
 
 
 // activate the Vue app (router + app container main)
