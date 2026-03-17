@@ -19,7 +19,7 @@ const searchKeyWord = ref<string>("");
 // filtra i prodotti di base fetchati e applica i filtri in sequenza
 const productsFiltered = computed<Product[]>(() => {
     // shallow copy of products collection api
-    let filtered = productsStore.stateProducts.products;
+    let filtered = [...productsStore.stateProducts.products];
 
     // 1 check -> filtraggio x categoria
     if (selectedCategory.value) {
@@ -66,7 +66,7 @@ const resetFilters = (): void => {
     <Loader v-if="productsStore.stateProducts.isLoading" />
     <p v-else-if="productsStore.stateProducts.error" class="text-danger">{{ productsStore.stateProducts.error }}</p>
     <div v-else class="row gap-0 gap-lg-4 justify-content-center">
-        <Filters :selected-category="selectedCategory" v-model:searchKeyWord="searchKeyWord" @set-category="setCategory"
+        <Filters :selected-category="selectedCategory" v-model="searchKeyWord" @set-category="setCategory"
             @reset-filters="resetFilters" />
         <!-- PRODOTTI CARDS PREVIEW || no prodotti trovati -->
         <div class="col-12 col-lg-10 order-2 order-lg-1 row row-gap-5">

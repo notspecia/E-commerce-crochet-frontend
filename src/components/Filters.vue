@@ -6,8 +6,14 @@ import { useCategoriesStore } from '@/stores/categories';
 /* PROPS */
 const props = defineProps<{
     selectedCategory: string
-    searchKeyWord: string
 }>()
+
+/* MODELS */
+const keyword = defineModel<string>();
+
+/* EMITS */
+// per evitare errori con il v-model 
+const emit = defineEmits(['set-category', 'reset-filters']);
 
 /* PRODUCTS PINIA STATE */
 const categoriesStore = useCategoriesStore();
@@ -20,13 +26,7 @@ const toggleFilters = (): void => {
     filtersOpen.value = !filtersOpen.value;
 }
 
-/* EMITS */
-// per evitare errori con il v-model 
-const emit = defineEmits<{
-    (e: 'update:searchKeyWord', value: string): void
-    (e: 'set-category', value: string): void
-    (e: 'reset-filters'): void
-}>();
+
 
 /* ONMOUNTED */
 // al montaggio dell'app carichiamo le categorie tramite il metodo fetchCategories del Pinia Store
@@ -54,10 +54,8 @@ onMounted(async () => {
                     <div class="filters">
                         <div>
                             <p class="fs-6 fw-bold mb-2">Cerca Prodotto <i class="ms-1 bi bi-search"></i></p>
-                            <input :value="searchKeyWord" @input="emit(
-                                'update:searchKeyWord',
-                                ($event.target as HTMLInputElement).value
-                            )" type="text" class="form-control mb-3 fs-6" placeholder="scrivi qui..." />
+                            <input v-model="keyword" type="text" class="form-control mb-3 fs-6"
+                                placeholder="scrivi qui..." />
                         </div>
                         <div>
                             <p class="fs-6 fw-bold mb-2">Categorie</p>
