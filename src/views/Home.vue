@@ -47,7 +47,7 @@ const goProductsPage = (): void => {
     <div class="container">
       <div class="about-content">
         <div class="about-text">
-          <h3 class="section-title">{{ $t('home.about.title') }}</h3>
+          <h2 class="header mb-5">{{ $t('home.about.title') }}</h2>
           <p v-html="$t('home.about.text1')"></p>
           <p v-html="$t('home.about.text2')"></p>
         </div>
@@ -137,7 +137,8 @@ const goProductsPage = (): void => {
 // responsive header section con immagini hero
 header {
   position: relative;
-  min-height: calc(100vh - 200px); // ← altezza navbar con margin height  min-height: calc(100vh - 10px); // ← altezza navbar con margin height
+  //min-height: calc(100vh - 200px); // ← altezza navbar con margin height  min-height: calc(100vh - 10px); // ← altezza navbar con margin height
+  margin-bottom: 150px;
 
   .header-mobile {
     display: block;

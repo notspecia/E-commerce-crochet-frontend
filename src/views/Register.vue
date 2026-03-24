@@ -49,7 +49,7 @@ onMounted(() => {
         <form class="card card-form py-4 px-3 px-sm-5" @submit.prevent="submitRegister">
             <div class="mb-4">
                 <RouterLink to="/">
-                    <img src="@/assets/logos/header-logo.png" alt="logo sito" class="logo">
+                    <img src="@/assets/images/header-logo.png" alt="logo sito" class="logo">
                 </RouterLink>
                 <h2 class="text-center">Register a new account!</h2>
             </div>
